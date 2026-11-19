@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Virtual Electrical &amp; Electronics Engineering Laboratory</title>
+  <link id="chromeFavicon" rel="icon" type="image/png" href="PhotoshopExtension_Image.png" />
   <style>
     /* =========================================================================
        1. ACADEMIC PORTAL THEME VARIABLES (LIGHT & DARK MODE)
     ========================================================================= */
     :root {
-      --bg: #F7F9FC;
+      --bg: #F6F8FB;
       --surface: #FFFFFF;
-      --surface-alt: #EFF3F8;
+      --surface-alt: #EEF2F7;
       --border: #CBD5E1;
       --text: #0F172A;
       --muted: #475569;
@@ -221,7 +222,7 @@
     }
 
     /* =========================================================================
-       3. SHELL & SIDEBAR DRAWER
+       3. SHELL & NEATLY GROUPED EXPANDABLE SIDEBAR DRAWER
     ========================================================================= */
     .shell {
       display: flex;
@@ -244,40 +245,121 @@
     }
 
     .sidebar {
-      width: 278px;
+      width: 292px;
       background-color: var(--surface);
       border-right: 1px solid var(--border);
-      padding: 1rem 0.75rem 2rem;
+      padding: 0.9rem 0.7rem 3rem;
       flex-shrink: 0;
     }
 
-    .sidebar-section {
-      font-size: 0.74rem;
+    .track-heading {
+      font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      padding: 0.85rem 0.65rem 0.3rem;
+      letter-spacing: 0.07em;
+      color: var(--teal);
+      padding: 0.9rem 0.6rem 0.3rem;
       font-weight: bold;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0.3rem;
+    }
+
+    .nav-group {
+      margin-bottom: 0.25rem;
     }
 
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
+      justify-content: space-between;
+      gap: 0.45rem;
       width: 100%;
       text-align: left;
       background: transparent;
       border: 1px solid transparent;
       color: var(--text);
-      padding: 0.55rem 0.65rem;
-      font-size: 0.94rem;
+      padding: 0.52rem 0.6rem;
+      font-size: 0.93rem;
       cursor: pointer;
       border-radius: 4px;
-      margin-bottom: 0.2rem;
-      min-height: 40px;
+      min-height: 39px;
+      transition: background-color 0.15s, border-color 0.15s;
+    }
+
+    .nav-item-main {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 0;
     }
 
     .nav-item:hover {
+      background-color: var(--surface-alt);
+    }
+
+    .nav-item.active {
+      background-color: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    body.dark-mode .nav-item.active {
+      color: #FFFFFF;
+    }
+
+    .nav-num {
+      font-size: 0.83rem;
+      color: var(--muted);
+      min-width: 1.4rem;
+    }
+
+    .nav-item.active .nav-num {
+      color: inherit;
+    }
+
+    .nav-caret {
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: transform 0.18s ease;
+    }
+
+    .nav-group.expanded .nav-caret {
+      transform: rotate(90deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      padding: 0.2rem 0 0.35rem 1.35rem;
+      border-left: 1px dashed var(--border);
+      margin-left: 0.95rem;
+    }
+
+    .nav-group.expanded .nav-sublist {
+      display: block;
+    }
+
+    .nav-subitem {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 0.34rem 0.55rem;
+      font-size: 0.86rem;
+      cursor: pointer;
+      border-radius: 3px;
+      margin-bottom: 0.12rem;
+    }
+
+    .nav-subitem:hover {
+      background-color: var(--surface-alt);
+      color: var(--text);
+    }
+
+    .nav-subitem.active {
+      color: var(--accent);
+      font-weight: bold;
       background-color: var(--surface-alt);
     }
 
@@ -611,74 +693,87 @@
 
     select {
       width: 100%;
-      padding: 0.5rem 0.65rem;
+      padding: 0.48rem 0.65rem;
+      border: 1px solid var(--border);
       background-color: var(--surface-alt);
       color: var(--text);
-      border: 1px solid var(--border);
-      font-size: 0.94rem;
       border-radius: 4px;
-      min-height: 40px;
+      font-size: 0.92rem;
     }
 
     .btn-row {
       display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.95rem;
+      gap: 0.45rem;
       flex-wrap: wrap;
-    }
-
-    .btn-row .btn {
-      flex: 1;
-      text-align: center;
-      padding: 0.4rem 0.5rem;
+      margin-bottom: 0.9rem;
     }
 
     .check-row {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
-      font-size: 0.94rem;
-      margin-top: 0.5rem;
+      gap: 0.45rem;
+      font-size: 0.9rem;
+      margin-top: 0.45rem;
       cursor: pointer;
-      min-height: 34px;
     }
 
-    .check-row input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--accent);
-    }
-
-    /* Schematic Box */
     .schematic-box {
       background-color: var(--surface-alt);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 0.55rem;
-      margin-bottom: 1rem;
-      text-align: center;
+      padding: 0.45rem;
+      margin-bottom: 0.9rem;
+      color: var(--text);
     }
 
     .schematic-box svg {
       width: 100%;
-      height: 88px;
+      height: 82px;
       display: block;
     }
 
-    /* Interactive Touch-Probe Canvas Container */
-    .canvas-container {
-      width: 100%;
-      height: 365px;
-      border: 1px solid var(--border);
-      background-color: var(--canvas-bg);
-      border-radius: 4px;
-      position: relative;
-      touch-action: pan-y;
-      cursor: crosshair;
-      overflow: hidden;
+    .legend-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
     }
 
-    canvas {
+    .legend-items {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      height: 330px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: var(--canvas-bg);
+      touch-action: none;
+    }
+
+    .canvas-container canvas {
       display: block;
       width: 100%;
       height: 100%;
@@ -690,62 +785,174 @@
       right: 8px;
       background-color: var(--surface);
       border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 0.8rem;
-      padding: 0.25rem 0.55rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 3px;
+      font-size: 0.78rem;
+      font-weight: bold;
+      color: var(--teal);
       pointer-events: none;
-      box-shadow: var(--shadow);
     }
 
-    .legend-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.88rem;
-      margin-bottom: 0.6rem;
-      color: var(--muted);
-      flex-wrap: wrap;
-    }
-
-    .legend-items {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .swatch {
-      width: 14px;
-      height: 3px;
-      display: inline-block;
-    }
-
-    /* Readings Strip */
     .readings-strip {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-      gap: 0.7rem;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
+      gap: 0.6rem;
+      margin-top: 0.85rem;
     }
 
     .reading-cell {
       background-color: var(--surface-alt);
       border: 1px solid var(--border);
-      padding: 0.5rem 0.7rem;
       border-radius: 4px;
+      padding: 0.55rem 0.7rem;
     }
 
     .reading-label {
       font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Mode Switcher Bar (Simulator Bench vs Complete Lab Manual & Notes) */
+    .workbench-mode-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0.55rem 0.85rem;
+      margin-bottom: 1.15rem;
+      box-shadow: var(--shadow);
+    }
+
+    .mode-pills {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .mode-pill {
+      padding: 0.42rem 0.95rem;
+      font-size: 0.92rem;
+      border: 1px solid var(--border);
+      background-color: var(--surface-alt);
+      color: var(--text);
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .mode-pill.active {
+      background-color: var(--teal);
+      color: #FFFFFF;
+      border-color: var(--teal);
+    }
+
+    body.dark-mode .mode-pill.active {
+      color: #0B1120;
+    }
+
+    /* Complete Lab Manual & Resources Notes Sheet (vlab.co.in Inspired) */
+    .manual-sheet {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.35rem 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .manual-banner {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.7rem;
+      margin-bottom: 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .manual-section {
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .manual-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .manual-sec-title {
+      font-size: 0.96rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .manual-diagram-wrap {
+      background-color: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0.85rem;
+      text-align: center;
+      margin: 0.5rem 0;
+    }
+
+    .manual-diagram-wrap svg {
+      width: 100%;
+      max-width: 520px;
+      height: 155px;
+      display: inline-block;
+    }
+
+    .manual-steps {
+      padding-left: 1.35rem;
+      font-size: 0.95rem;
+    }
+
+    .manual-steps li {
+      margin-bottom: 0.42rem;
+    }
+
+    .manual-precautions {
+      background-color: var(--surface-alt);
+      border-left: 3px solid var(--secondary);
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      font-size: 0.93rem;
+    }
+
+    .track-header-home {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.45rem 0.75rem;
+      background-color: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px;
+      margin: 1.35rem 0 0.85rem;
+    }
+
+    .track-header-home h3 {
+      font-size: 1.05rem;
+      color: var(--accent);
+    }
+
+    .track-header-home span {
+      font-size: 0.84rem;
       color: var(--muted);
     }
 
@@ -1009,13 +1216,14 @@
     </div>
 
     <div class="topbar-actions">
+      <button class="btn btn-sm" onclick="openMasterManual()" title="View Complete Lab Manual, Apparatus & Procedures for All 22 Experiments">Lab Manual &amp; Notes</button>
       <button class="btn btn-sm" onclick="switchArea('area09')" title="Open Formula Handbook, Viva Quiz & Observation Logbook">Resources</button>
       <!-- Icon-Only Light / Dark Mode Toggle -->
       <button id="themeToggleBtn" class="icon-btn" aria-label="Switch to Dark Mode" title="Switch to Dark Mode">
-        <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
-        <svg id="themeIconSun" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg id="themeIconSun" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
           <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -1033,51 +1241,119 @@
   <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 
   <div class="shell">
-    <!-- Left Curriculum & Resources Sidebar -->
+    <!-- Left Curriculum & Resources Sidebar (Neatly Grouped into 4 Tracks) -->
     <aside id="sidebar" class="sidebar">
       <button class="nav-item active" data-area="area00">
-        <span class="nav-num">00.</span>
-        <span>Home &amp; Lab Directory</span>
+        <span class="nav-item-main">
+          <span class="nav-num">00.</span>
+          <span>Home &amp; Lab Directory</span>
+        </span>
       </button>
 
-      <div class="sidebar-section">EEE Subject Branches</div>
-      <button class="nav-item" data-area="area01">
-        <span class="nav-num">01.</span>
-        <span>Basic Circuits &amp; Theorems</span>
-      </button>
-      <button class="nav-item" data-area="area02">
-        <span class="nav-num">02.</span>
-        <span>Measurements &amp; CRO</span>
-      </button>
-      <button class="nav-item" data-area="area03">
-        <span class="nav-num">03.</span>
-        <span>Analog Electronics &amp; Devices</span>
-      </button>
-      <button class="nav-item" data-area="area04">
-        <span class="nav-num">04.</span>
-        <span>Digital Logic &amp; Sequential</span>
-      </button>
-      <button class="nav-item" data-area="area05">
-        <span class="nav-num">05.</span>
-        <span>Transformers &amp; DC Machines</span>
-      </button>
-      <button class="nav-item" data-area="area06">
-        <span class="nav-num">06.</span>
-        <span>AC &amp; Synchronous Machines</span>
-      </button>
-      <button class="nav-item" data-area="area07">
-        <span class="nav-num">07.</span>
-        <span>Control Systems Engineering</span>
-      </button>
-      <button class="nav-item" data-area="area08">
-        <span class="nav-num">08.</span>
-        <span>Power Electronics &amp; Drives</span>
-      </button>
+      <div class="track-heading">Track I &bull; Circuits &amp; Measurements</div>
+      <div class="nav-group" data-group="area01">
+        <button class="nav-item" data-area="area01">
+          <span class="nav-item-main"><span class="nav-num">01.</span><span>Basic Circuits &amp; Theorems</span></span>
+          <span class="nav-caret">&#9656;</span>
+        </button>
+        <div class="nav-sublist">
+          <button class="nav-subitem" data-sub="1A" onclick="launchExp('area01','1A')">1A. RLC Step Transient</button>
+          <button class="nav-subitem" data-sub="1B" onclick="launchExp('area01','1B')">1B. AC Series Resonance</button>
+          <button class="nav-subitem" data-sub="1C" onclick="launchExp('area01','1C')">1C. Thevenin Max Power</button>
+        </div>
+      </div>
 
-      <div class="sidebar-section">Academic Resources</div>
+      <div class="nav-group" data-group="area02">
+        <button class="nav-item" data-area="area02">
+          <span class="nav-item-main"><span class="nav-num">02.</span><span>Measurements &amp; CRO</span></span>
+          <span class="nav-caret">&#9656;</span>
+        </button>
+        <div class="nav-sublist">
+          <button class="nav-subitem" data-sub="2A" onclick="launchExp('area02','2A')">2A. Dual-Trace CRO</button>
+          <button class="nav-subitem" data-sub="2B" onclick="launchExp('area02','2B')">2B. X-Y Lissajous Loops</button>
+          <button class="nav-subitem" data-sub="2C" onclick="launchExp('area02','2C')">2C. Maxwell &amp; Wien Bridge</button>
+        </div>
+      </div>
+
+      <div class="track-heading">Track II &bull; Analog &amp; Digital</div>
+      <div class="nav-group" data-group="area03">
+        <button class="nav-item" data-area="area03">
+          <span class="nav-item-main"><span class="nav-num">03.</span><span>Analog Electronics</span></span>
+          <span class="nav-caret">&#9656;</span>
+        </button>
+        <div class="nav-sublist">
+          <button class="nav-subitem" data-sub="3A" onclick="launchExp('area03','3A')">3A. PN &amp; Zener Diode V-I</button>
+          <button class="nav-subitem" data-sub="3B" onclick="launchExp('area03','3B')">3B. BJT CE &amp; Q-Point</button>
+          <button class="nav-subitem" data-sub="3C" onclick="launchExp('area03','3C')">3C. Op-Amp Circuits</button>
+        </div>
+      </div>
+
+      <div class="nav-group" data-group="area04">
+        <button class="nav-item" data-area="area04">
+          <span class="nav-item-main"><span class="nav-num">04.</span><span>Digital Logic Systems</span></span>
+          <span class="nav-caret">&#9656;</span>
+        </button>
+        <div class="nav-sublist">
+          <button class="nav-subitem" data-sub="4A" onclick="launchExp('area04','4A')">4A. Karnaugh Map Solver</button>
+          <button class="nav-subitem" data-sub="4B" onclick="launchExp('area04','4B')">4B. 4:1 MUX &amp; Full Adder</button>
+          <button class="nav-subitem" data-sub="4C" onclick="launchExp('area04','4C')">4C. JK Counter Timing</button>
+        </div>
+      </div>
+
+      <div class="track-heading">Track III &bull; Electrical Machines</div>
+      <div class="nav-group" data-group="area05">
+        <button class="nav-item" data-area="area05">
+          <span class="nav-item-main"><span class="nav-num">05.</span><span>Transformers &amp; DC</span></span>
+          <span class="nav-caret">&#9656;</span>
+        </button>
+        <div class="nav-sublist">
+          <button class="nav-subitem" data-sub="5A" onclick="launchExp('area05','5A')">5A. 1-Phase Transformer</button>
+          <button class="nav-subitem" data-sub="5B" onclick="launchExp('area05','5B')">5B. DC Motor Speed Control</button>
+          <button class="nav-subitem" data-sub="5C" onclick="launchExp('area05','5C')">5C. DC Generator OCC</button>
+        </div>
+      </div>
+
+      <div class="nav-group" data-group="area06">
+        <button class="nav-item" data-area="area06">
+          <span class="nav-item-main"><span class="nav-num">06.</span><span>AC &amp; Synchronous</span></span>
+          <span class="nav-caret">&#9656;</span>
+        </button>
+        <div class="nav-sublist">
+          <button class="nav-subitem" data-sub="6A" onclick="launchExp('area06','6A')">6A. 3-Ph Induction Motor</button>
+          <button class="nav-subitem" data-sub="6B" onclick="launchExp('area06','6B')">6B. Synchronous V-Curves</button>
+        </div>
+      </div>
+
+      <div class="track-heading">Track IV &bull; Control &amp; Power</div>
+      <div class="nav-group" data-group="area07">
+        <button class="nav-item" data-area="area07">
+          <span class="nav-item-main"><span class="nav-num">07.</span><span>Control Systems</span></span>
+          <span class="nav-caret">&#9656;</span>
+        </button>
+        <div class="nav-sublist">
+          <button class="nav-subitem" data-sub="7A" onclick="launchExp('area07','7A')">7A. PID Step Response</button>
+          <button class="nav-subitem" data-sub="7B" onclick="launchExp('area07','7B')">7B. Bode Stability Margins</button>
+        </div>
+      </div>
+
+      <div class="nav-group" data-group="area08">
+        <button class="nav-item" data-area="area08">
+          <span class="nav-item-main"><span class="nav-num">08.</span><span>Power Electronics</span></span>
+          <span class="nav-caret">&#9656;</span>
+        </button>
+        <div class="nav-sublist">
+          <button class="nav-subitem" data-sub="8A" onclick="launchExp('area08','8A')">8A. Controlled SCR Rectifier</button>
+          <button class="nav-subitem" data-sub="8B" onclick="launchExp('area08','8B')">8B. DC-DC Buck / Boost</button>
+          <button class="nav-subitem" data-sub="8C" onclick="launchExp('area08','8C')">8C. Single-Phase SPWM</button>
+        </div>
+      </div>
+
+      <div class="track-heading">Academic Reference Hub</div>
       <button class="nav-item" data-area="area09">
-        <span class="nav-num">09.</span>
-        <span>Formulas, Viva &amp; Logbook</span>
+        <span class="nav-item-main">
+          <span class="nav-num">09.</span>
+          <span>Lab Manuals, Formulas &amp; Log</span>
+        </span>
       </button>
     </aside>
 
@@ -1087,9 +1363,9 @@
         <div>
           <div id="expKicker" class="exp-kicker">Academic Virtual Laboratory Portal</div>
           <h2 id="expTitle">00. Home &amp; Virtual EEE Laboratory Directory</h2>
-          <div id="expEquation" class="exp-equation">Select a branch card, search any experiment, or open the Student Resources Hub below.</div>
+          <div id="expEquation" class="exp-equation">Select a branch card, search any experiment, or open the Complete Lab Manual &amp; Resources Hub below.</div>
         </div>
-        <div id="headerActionWrap" class="hidden">
+        <div id="headerActionWrap" class="hidden" style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
           <button id="recordReadingBtn" class="btn btn-teal btn-sm">+ Record Reading to Logbook</button>
         </div>
       </div>
@@ -1097,14 +1373,26 @@
       <!-- Sub-experiment Horizontal Touch Tabs -->
       <div id="subTabsBar" class="sub-tabs hidden"></div>
 
+      <!-- Workbench Mode Switcher (Interactive Simulator vs. Complete Lab Manual & Notes) -->
+      <div id="workbenchModeBar" class="workbench-mode-bar hidden">
+        <div class="mode-pills">
+          <button id="modeSimBtn" class="mode-pill active" onclick="setBenchMode('sim')">1. Interactive Simulation Bench</button>
+          <button id="modeManualBtn" class="mode-pill" onclick="setBenchMode('manual')">2. Complete Lab Manual &amp; Notes (Apparatus, Circuit &amp; Procedure)</button>
+        </div>
+        <span style="font-size: 0.83rem; color: var(--muted);">Switch between live simulation and complete practical record notes</span>
+      </div>
+
+      <!-- Dedicated Complete Lab Manual & Resources Notes Container for Active Experiment -->
+      <div id="activeExpManualContainer" class="hidden"></div>
+
       <!-- Principle & Observation ("What Is Happening") Box -->
       <div id="principleBox" class="principle-box">
         <div class="principle-title">Principle &amp; Observation &mdash; What Is Happening</div>
-        <div id="principleText">Welcome to the All-in-One Virtual EEE Laboratory. Tap or drag directly on any simulation graph to probe exact coordinate values, apply one-tap test presets, and record your experimental observations into a downloadable CSV lab report.</div>
+        <div id="principleText">Welcome to the All-in-One Virtual EEE Laboratory. Tap or drag directly on any simulation graph to probe exact coordinate values, switch to the "Complete Lab Manual &amp; Notes" tab for apparatus lists, circuit diagrams, and step-by-step procedures, or record readings into a downloadable CSV lab report.</div>
       </div>
 
       <!-- =================================================================
-           00. HOME DASHBOARD & BRANCH PORTAL
+           00. HOME DASHBOARD & BRANCH PORTAL (GROUPED BY 4 ACADEMIC TRACKS)
       ================================================================== -->
       <section id="view-area00" class="area-view">
         <!-- Portal Hero & Live Experiment Filter -->
@@ -1113,16 +1401,16 @@
             <div class="hero-badges">
               <span class="badge">B.Tech / B.E. &amp; Diploma EEE</span>
               <span class="badge badge-teal">22 Interactive Experiments</span>
-              <span class="badge">Touch-Probe Canvas</span>
+              <span class="badge">Complete Lab Manuals Included</span>
             </div>
-            <h3 style="font-size: 1.32rem; margin-bottom: 0.35rem;">Interactive Engineering Workbenches &amp; Academic Resources</h3>
+            <h3 style="font-size: 1.32rem; margin-bottom: 0.35rem;">Interactive Engineering Workbenches &amp; Academic Lab Manuals</h3>
             <p style="font-size: 0.94rem; color: var(--muted);">
-              Explore real-time circuit transients, cathode-ray oscilloscope Lissajous loops, semiconductor load lines, Karnaugh map synthesis, rotating electrical machines, PID controllers, and power electronic converters.
+              Organized into four systematic undergraduate tracks. Launch any interactive simulation bench or open its complete practical manual containing Aim, Apparatus Specifications, SVG Circuit Diagram, Theory, Step-by-Step Procedure, and Precautions.
             </p>
             <div class="search-bar-wrap">
               <input type="text" id="homeSearchInput" class="search-input" placeholder="Search experiments (e.g., Zener, Transformer, PID, SCR, Bode, K-Map)..." />
               <button class="btn btn-primary" onclick="launchRandomLab()">Random Lab</button>
-              <button class="btn" onclick="switchArea('area09')">Viva &amp; Formulas</button>
+              <button class="btn" onclick="openMasterManual()">All Lab Manuals</button>
             </div>
           </div>
 
@@ -1134,17 +1422,16 @@
               <path d="M 20 110 C 65 25, 115 45, 165 62 C 215 76, 260 68, 300 70" fill="none" stroke="var(--teal)" stroke-width="2"/>
               <circle cx="90" cy="70" r="4" fill="var(--secondary)"/>
               <text x="22" y="25" font-size="11" font-weight="bold" fill="currentColor">CH1: AC Sinusoid | CH2: Step Response</text>
-              <text x="22" y="124" font-size="10" fill="currentColor" opacity="0.75">Real-Time Differential &amp; Phasor Solver Engine</text>
+              <text x="22" y="124" font-size="10" fill="currentColor" opacity="0.75">Real-Time Differential, Phasor &amp; Lab Manual Engine</text>
             </svg>
           </div>
         </div>
 
-        <!-- Branch / Subject Cards with Custom Technical SVG Pictures -->
-        <div class="panel-title" style="border:none; margin-bottom: 0.65rem;">
-          <span>EEE Laboratory Branches &amp; Semester Courses</span>
-          <span style="font-size: 0.85rem; color: var(--muted); font-weight: normal;">Tap any branch card to launch its bench</span>
+        <!-- TRACK I -->
+        <div class="track-header-home">
+          <h3>Track I: Core Circuits &amp; Electronic Measurements</h3>
+          <span>Foundational Network Theorems, RLC Dynamics &amp; Oscilloscope Instrumentation</span>
         </div>
-
         <div class="branch-grid" id="branchCardsGrid">
           <!-- Card 01 -->
           <div class="branch-card" data-keywords="rlc transient damping resonance thevenin maximum power circuits network">
@@ -1163,10 +1450,13 @@
               </svg>
             </div>
             <div class="branch-body">
-              <div class="branch-meta"><span>SEM II &bull; CORE</span><span>3 Experiments</span></div>
+              <div class="branch-meta"><span>SEM II &bull; TRACK I</span><span>3 Experiments + Manual</span></div>
               <h3>01. Basic Circuits &amp; Theorems</h3>
               <p>RLC second-order step transients, AC series resonance bandwidth, and Thevenin maximum power transfer.</p>
-              <button class="btn btn-primary" onclick="launchExp('area01', '1A')">Open Circuit Bench &rarr;</button>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="launchExp('area01', '1A', 'sim')">Simulate &rarr;</button>
+                <button class="btn" onclick="launchExp('area01', '1A', 'manual')">Manual</button>
+              </div>
             </div>
           </div>
 
@@ -1182,13 +1472,23 @@
               </svg>
             </div>
             <div class="branch-body">
-              <div class="branch-meta"><span>SEM III &bull; INSTRUMENTATION</span><span>3 Experiments</span></div>
+              <div class="branch-meta"><span>SEM III &bull; TRACK I</span><span>3 Experiments + Manual</span></div>
               <h3>02. Measurements &amp; CRO</h3>
               <p>Dual-channel oscilloscope time-base traces, X-Y Lissajous phase loops, and Maxwell/Wien AC null bridges.</p>
-              <button class="btn btn-primary" onclick="launchExp('area02', '2A')">Open CRO Bench &rarr;</button>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="launchExp('area02', '2A', 'sim')">Simulate &rarr;</button>
+                <button class="btn" onclick="launchExp('area02', '2A', 'manual')">Manual</button>
+              </div>
             </div>
           </div>
+        </div>
 
+        <!-- TRACK II -->
+        <div class="track-header-home">
+          <h3>Track II: Analog &amp; Digital Electronics</h3>
+          <span>Semiconductor Devices, Operational Amplifiers, Boolean Minimization &amp; Sequential Counters</span>
+        </div>
+        <div class="branch-grid">
           <!-- Card 03 -->
           <div class="branch-card" data-keywords="diode zener bjt transistor q-point opamp inverting integrator analog">
             <div class="branch-illus">
@@ -1203,10 +1503,13 @@
               </svg>
             </div>
             <div class="branch-body">
-              <div class="branch-meta"><span>SEM III &bull; ELECTRONICS</span><span>3 Experiments</span></div>
+              <div class="branch-meta"><span>SEM III &bull; TRACK II</span><span>3 Experiments + Manual</span></div>
               <h3>03. Analog Electronics &amp; Devices</h3>
               <p>Silicon/Germanium &amp; Zener V-I curves, BJT collector DC load line Q-point, and Op-Amp saturation circuits.</p>
-              <button class="btn btn-primary" onclick="launchExp('area03', '3A')">Open Analog Bench &rarr;</button>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="launchExp('area03', '3A', 'sim')">Simulate &rarr;</button>
+                <button class="btn" onclick="launchExp('area03', '3A', 'manual')">Manual</button>
+              </div>
             </div>
           </div>
 
@@ -1222,13 +1525,23 @@
               </svg>
             </div>
             <div class="branch-body">
-              <div class="branch-meta"><span>SEM IV &bull; DIGITAL</span><span>3 Experiments</span></div>
+              <div class="branch-meta"><span>SEM IV &bull; TRACK II</span><span>3 Experiments + Manual</span></div>
               <h3>04. Digital Logic &amp; Sequential</h3>
               <p>Gray-code Karnaugh Map Boolean minimizer, 4:1 MUX &amp; Full Adder, and Mod-8 ripple counter timing waveforms.</p>
-              <button class="btn btn-primary" onclick="launchExp('area04', '4A')">Open Digital Bench &rarr;</button>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="launchExp('area04', '4A', 'sim')">Simulate &rarr;</button>
+                <button class="btn" onclick="launchExp('area04', '4A', 'manual')">Manual</button>
+              </div>
             </div>
           </div>
+        </div>
 
+        <!-- TRACK III -->
+        <div class="track-header-home">
+          <h3>Track III: Electrical Machines (DC, Transformers &amp; AC)</h3>
+          <span>Electromechanical Energy Conversion, Speed Control &amp; Rotating Field Machines</span>
+        </div>
+        <div class="branch-grid">
           <!-- Card 05 -->
           <div class="branch-card" data-keywords="transformer oc sc efficiency regulation dc motor shunt series generator">
             <div class="branch-illus">
@@ -1240,10 +1553,13 @@
               </svg>
             </div>
             <div class="branch-body">
-              <div class="branch-meta"><span>SEM IV &bull; MACHINES-I</span><span>3 Experiments</span></div>
+              <div class="branch-meta"><span>SEM IV &bull; TRACK III</span><span>3 Experiments + Manual</span></div>
               <h3>05. Transformers &amp; DC Machines</h3>
               <p>Single-phase transformer efficiency &amp; regulation, DC Shunt/Series motor speed control, and DC generator OCC.</p>
-              <button class="btn btn-primary" onclick="launchExp('area05', '5A')">Open Machines-I &rarr;</button>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="launchExp('area05', '5A', 'sim')">Simulate &rarr;</button>
+                <button class="btn" onclick="launchExp('area05', '5A', 'manual')">Manual</button>
+              </div>
             </div>
           </div>
 
@@ -1259,13 +1575,23 @@
               </svg>
             </div>
             <div class="branch-body">
-              <div class="branch-meta"><span>SEM V &bull; MACHINES-II</span><span>2 Experiments</span></div>
+              <div class="branch-meta"><span>SEM V &bull; TRACK III</span><span>2 Experiments + Manual</span></div>
               <h3>06. AC &amp; Synchronous Machines</h3>
               <p>3-phase induction motor torque-slip curves with rotor resistance variation, and synchronous motor V-curves.</p>
-              <button class="btn btn-primary" onclick="launchExp('area06', '6A')">Open Machines-II &rarr;</button>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="launchExp('area06', '6A', 'sim')">Simulate &rarr;</button>
+                <button class="btn" onclick="launchExp('area06', '6A', 'manual')">Manual</button>
+              </div>
             </div>
           </div>
+        </div>
 
+        <!-- TRACK IV -->
+        <div class="track-header-home">
+          <h3>Track IV: Control Systems &amp; Power Electronics</h3>
+          <span>Closed-Loop Stability, Frequency Response &amp; Solid-State Power Converters</span>
+        </div>
+        <div class="branch-grid">
           <!-- Card 07 -->
           <div class="branch-card" data-keywords="pid controller step response overshoot bode plot phase gain margin stability">
             <div class="branch-illus">
@@ -1280,10 +1606,13 @@
               </svg>
             </div>
             <div class="branch-body">
-              <div class="branch-meta"><span>SEM V &bull; CONTROL</span><span>2 Experiments</span></div>
+              <div class="branch-meta"><span>SEM V &bull; TRACK IV</span><span>2 Experiments + Manual</span></div>
               <h3>07. Control Systems Engineering</h3>
               <p>Closed-loop PID controller transient tuning and logarithmic Bode magnitude &amp; phase stability margins.</p>
-              <button class="btn btn-primary" onclick="launchExp('area07', '7A')">Open Control Bench &rarr;</button>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="launchExp('area07', '7A', 'sim')">Simulate &rarr;</button>
+                <button class="btn" onclick="launchExp('area07', '7A', 'manual')">Manual</button>
+              </div>
             </div>
           </div>
 
@@ -1300,10 +1629,13 @@
               </svg>
             </div>
             <div class="branch-body">
-              <div class="branch-meta"><span>SEM VI &bull; POWER</span><span>3 Experiments</span></div>
+              <div class="branch-meta"><span>SEM VI &bull; TRACK IV</span><span>3 Experiments + Manual</span></div>
               <h3>08. Power Electronics &amp; Drives</h3>
               <p>Phase-controlled SCR rectifiers, DC-DC Buck/Boost choppers, and single-phase SPWM inverters.</p>
-              <button class="btn btn-primary" onclick="launchExp('area08', '8A')">Open Power Bench &rarr;</button>
+              <div style="display:flex; gap:0.4rem;">
+                <button class="btn btn-primary" style="flex:1;" onclick="launchExp('area08', '8A', 'sim')">Simulate &rarr;</button>
+                <button class="btn" onclick="launchExp('area08', '8A', 'manual')">Manual</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1311,42 +1643,43 @@
         <!-- Complete Master Experiment Syllabus Table -->
         <div class="panel" style="margin-bottom: 1.5rem;">
           <div class="panel-title">
-            <span>Master Syllabus &amp; Quick-Launch Index (22 Simulations)</span>
+            <span>Master Syllabus, Quick-Launch &amp; Lab Manuals Index (22 Experiments)</span>
             <span id="tableCountBadge" style="font-size: 0.85rem; color: var(--muted); font-weight: normal;">Showing all 22 experiments</span>
           </div>
           <div style="overflow-x: auto;">
             <table class="lab-table" id="masterSyllabusTable">
               <thead>
                 <tr>
-                  <th style="width: 65px;">Code</th>
-                  <th style="width: 210px;">Subject Area</th>
+                  <th style="width: 60px;">Code</th>
+                  <th style="width: 195px;">Track &amp; Subject</th>
                   <th>Experiment Topic</th>
                   <th>Observable Engineering Phenomena</th>
+                  <th style="width: 155px;">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="clickable" onclick="launchExp('area01', '1A')"><td><strong>1A</strong></td><td>01. Basic Circuits &amp; Theorems</td><td><strong>RLC Step Transient &amp; Damping</strong></td><td>Second-order natural response (&zeta;, &omega;<sub>0</sub>): underdamped oscillation vs. overdamped decay</td></tr>
-                <tr class="clickable" onclick="launchExp('area01', '1B')"><td><strong>1B</strong></td><td>01. Basic Circuits &amp; Theorems</td><td><strong>AC Series &amp; Parallel Resonance</strong></td><td>Frequency sweep showing resonant peak f<sub>0</sub>, half-power bandwidth, and Q-factor</td></tr>
-                <tr class="clickable" onclick="launchExp('area01', '1C')"><td><strong>1C</strong></td><td>01. Basic Circuits &amp; Theorems</td><td><strong>Thevenin &amp; Maximum Power Transfer</strong></td><td>Load power P<sub>L</sub> and efficiency &eta; vs. R<sub>L</sub>; peak power occurs at R<sub>L</sub> = R<sub>th</sub></td></tr>
-                <tr class="clickable" onclick="launchExp('area02', '2A')"><td><strong>2A</strong></td><td>02. Measurements &amp; CRO</td><td><strong>Dual-Trace CRO &amp; Function Generator</strong></td><td>Time-base waveform synthesis, Volts/Div scaling, phase shift, and DC offset</td></tr>
-                <tr class="clickable" onclick="launchExp('area02', '2B')"><td><strong>2B</strong></td><td>02. Measurements &amp; CRO</td><td><strong>X-Y Lissajous Phase &amp; Frequency</strong></td><td>Phase angle determination &Delta;&phi; = sin<sup>&minus;1</sup>(Y<sub>0</sub>/Y<sub>max</sub>) and harmonic loops</td></tr>
-                <tr class="clickable" onclick="launchExp('area02', '2C')"><td><strong>2C</strong></td><td>02. Measurements &amp; CRO</td><td><strong>AC Bridge (Maxwell &amp; Wien Bridge)</strong></td><td>Null-detector galvanometer balancing Z<sub>1</sub>Z<sub>4</sub> = Z<sub>2</sub>Z<sub>3</sub> for inductance &amp; frequency</td></tr>
-                <tr class="clickable" onclick="launchExp('area03', '3A')"><td><strong>3A</strong></td><td>03. Analog Electronics &amp; Devices</td><td><strong>PN Junction &amp; Zener Diode V-I</strong></td><td>Shockley exponential conduction (Si/Ge) and Zener reverse breakdown regulation</td></tr>
-                <tr class="clickable" onclick="launchExp('area03', '3B')"><td><strong>3B</strong></td><td>03. Analog Electronics &amp; Devices</td><td><strong>BJT Common-Emitter &amp; Q-Point</strong></td><td>Collector curves I<sub>C</sub> vs. V<sub>CE</sub> with DC Load Line and operating point</td></tr>
-                <tr class="clickable" onclick="launchExp('area03', '3C')"><td><strong>3C</strong></td><td>03. Analog Electronics &amp; Devices</td><td><strong>Operational Amplifier Circuits</strong></td><td>Inverting, Non-Inverting, and Integrator waveforms with &plusmn;V<sub>cc</sub> saturation clipping</td></tr>
-                <tr class="clickable" onclick="launchExp('area04', '4A')"><td><strong>4A</strong></td><td>04. Digital Logic &amp; Sequential</td><td><strong>Karnaugh Map &amp; SOP Minimizer</strong></td><td>2, 3, and 4-variable Gray-code K-Map Boolean reduction and AND-OR gate synthesis</td></tr>
-                <tr class="clickable" onclick="launchExp('area04', '4B')"><td><strong>4B</strong></td><td>04. Digital Logic &amp; Sequential</td><td><strong>Combinational: 4:1 MUX &amp; Full Adder</strong></td><td>Interactive logic switches, truth-table row highlighting, and gate signal path</td></tr>
-                <tr class="clickable" onclick="launchExp('area04', '4C')"><td><strong>4C</strong></td><td>04. Digital Logic &amp; Sequential</td><td><strong>Sequential: JK Flip-Flop &amp; Mod-8 Counter</strong></td><td>Clock-edge triggered multi-channel digital timing diagram (CLK, Q<sub>0</sub>, Q<sub>1</sub>, Q<sub>2</sub>)</td></tr>
-                <tr class="clickable" onclick="launchExp('area05', '5A')"><td><strong>5A</strong></td><td>05. Transformers &amp; DC Machines</td><td><strong>Single-Phase Transformer (OC/SC)</strong></td><td>Equivalent circuit parameters, voltage regulation, and efficiency vs. load curve</td></tr>
-                <tr class="clickable" onclick="launchExp('area05', '5B')"><td><strong>5B</strong></td><td>05. Transformers &amp; DC Machines</td><td><strong>DC Shunt &amp; Series Motor Control</strong></td><td>Speed-torque characteristics under armature voltage V<sub>a</sub> and field flux I<sub>f</sub> control</td></tr>
-                <tr class="clickable" onclick="launchExp('area05', '5C')"><td><strong>5C</strong></td><td>05. Transformers &amp; DC Machines</td><td><strong>DC Generator OCC &amp; Load Curves</strong></td><td>Open-Circuit Magnetization E<sub>g</sub> vs. I<sub>f</sub> and terminal voltage droop V<sub>t</sub> vs. I<sub>a</sub></td></tr>
-                <tr class="clickable" onclick="launchExp('area06', '6A')"><td><strong>6A</strong></td><td>06. AC &amp; Synchronous Machines</td><td><strong>3-Phase Induction Motor Torque-Slip</strong></td><td>Effect of rotor resistance R<sub>2</sub>' on starting torque, pull-out torque, and slip</td></tr>
-                <tr class="clickable" onclick="launchExp('area06', '6B')"><td><strong>6B</strong></td><td>06. AC &amp; Synchronous Machines</td><td><strong>Synchronous Motor V-Curves &amp; PF</strong></td><td>Armature current I<sub>a</sub> vs. field excitation I<sub>f</sub> from lagging to unity to leading PF</td></tr>
-                <tr class="clickable" onclick="launchExp('area07', '7A')"><td><strong>7A</strong></td><td>07. Control Systems Engineering</td><td><strong>PID Controller Step Response</strong></td><td>Closed-loop K<sub>p</sub>, K<sub>i</sub>, K<sub>d</sub> tuning with Rise Time, Overshoot %OS, and Settling Time</td></tr>
-                <tr class="clickable" onclick="launchExp('area07', '7B')"><td><strong>7B</strong></td><td>07. Control Systems Engineering</td><td><strong>Bode Plot &amp; Stability Margins</strong></td><td>Log-frequency magnitude (dB) and phase (&deg;) plots with Gain &amp; Phase Margins</td></tr>
-                <tr class="clickable" onclick="launchExp('area08', '8A')"><td><strong>8A</strong></td><td>08. Power Electronics &amp; Drives</td><td><strong>Controlled SCR Rectifier</strong></td><td>Half-wave and full-wave SCR bridge firing angle &alpha;, R-L load, and freewheeling diode</td></tr>
-                <tr class="clickable" onclick="launchExp('area08', '8B')"><td><strong>8B</strong></td><td>08. Power Electronics &amp; Drives</td><td><strong>DC-DC Buck &amp; Boost Converters</strong></td><td>Duty cycle D switching waveforms showing inductor ripple &Delta;i<sub>L</sub> in CCM/DCM</td></tr>
-                <tr class="clickable" onclick="launchExp('area08', '8C')"><td><strong>8C</strong></td><td>08. Power Electronics &amp; Drives</td><td><strong>Single-Phase SPWM Inverter</strong></td><td>Sinusoidal pulse-width modulation gating, switched bridge output, and fundamental wave</td></tr>
+                <tr><td><strong>1A</strong></td><td>Track I &bull; Circuits</td><td><strong>RLC Step Transient &amp; Damping</strong></td><td>Second-order natural response (&zeta;, &omega;<sub>0</sub>): underdamped vs. overdamped</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area01','1A','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area01','1A','manual')">Manual</button></td></tr>
+                <tr><td><strong>1B</strong></td><td>Track I &bull; Circuits</td><td><strong>AC Series &amp; Parallel Resonance</strong></td><td>Frequency sweep showing resonant peak f<sub>0</sub>, bandwidth, and Q-factor</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area01','1B','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area01','1B','manual')">Manual</button></td></tr>
+                <tr><td><strong>1C</strong></td><td>Track I &bull; Circuits</td><td><strong>Thevenin &amp; Maximum Power Transfer</strong></td><td>Load power P<sub>L</sub> and efficiency &eta; vs. R<sub>L</sub>; peak power at R<sub>L</sub> = R<sub>th</sub></td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area01','1C','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area01','1C','manual')">Manual</button></td></tr>
+                <tr><td><strong>2A</strong></td><td>Track I &bull; Measurements</td><td><strong>Dual-Trace CRO &amp; Function Generator</strong></td><td>Time-base waveform synthesis, Volts/Div scaling, phase shift, and offset</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area02','2A','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area02','2A','manual')">Manual</button></td></tr>
+                <tr><td><strong>2B</strong></td><td>Track I &bull; Measurements</td><td><strong>X-Y Lissajous Phase &amp; Frequency</strong></td><td>Phase angle determination &Delta;&phi; = sin<sup>&minus;1</sup>(Y<sub>0</sub>/Y<sub>max</sub>) and harmonic loops</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area02','2B','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area02','2B','manual')">Manual</button></td></tr>
+                <tr><td><strong>2C</strong></td><td>Track I &bull; Measurements</td><td><strong>AC Bridge (Maxwell &amp; Wien Bridge)</strong></td><td>Null-detector galvanometer balancing Z<sub>1</sub>Z<sub>4</sub> = Z<sub>2</sub>Z<sub>3</sub></td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area02','2C','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area02','2C','manual')">Manual</button></td></tr>
+                <tr><td><strong>3A</strong></td><td>Track II &bull; Analog</td><td><strong>PN Junction &amp; Zener Diode V-I</strong></td><td>Shockley exponential conduction (Si/Ge) and Zener breakdown regulation</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area03','3A','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area03','3A','manual')">Manual</button></td></tr>
+                <tr><td><strong>3B</strong></td><td>Track II &bull; Analog</td><td><strong>BJT Common-Emitter &amp; Q-Point</strong></td><td>Collector curves I<sub>C</sub> vs. V<sub>CE</sub> with DC Load Line and operating point</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area03','3B','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area03','3B','manual')">Manual</button></td></tr>
+                <tr><td><strong>3C</strong></td><td>Track II &bull; Analog</td><td><strong>Operational Amplifier Circuits</strong></td><td>Inverting, Non-Inverting, and Integrator waveforms with &plusmn;V<sub>cc</sub> saturation</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area03','3C','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area03','3C','manual')">Manual</button></td></tr>
+                <tr><td><strong>4A</strong></td><td>Track II &bull; Digital</td><td><strong>Karnaugh Map &amp; SOP Minimizer</strong></td><td>2, 3, and 4-variable Gray-code K-Map Boolean reduction and gate synthesis</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area04','4A','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area04','4A','manual')">Manual</button></td></tr>
+                <tr><td><strong>4B</strong></td><td>Track II &bull; Digital</td><td><strong>Combinational: 4:1 MUX &amp; Full Adder</strong></td><td>Interactive logic switches, truth-table row highlighting, and gate signal path</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area04','4B','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area04','4B','manual')">Manual</button></td></tr>
+                <tr><td><strong>4C</strong></td><td>Track II &bull; Digital</td><td><strong>Sequential: JK Flip-Flop &amp; Mod-8 Counter</strong></td><td>Clock-edge triggered multi-channel digital timing diagram (CLK, Q<sub>0</sub>..Q<sub>2</sub>)</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area04','4C','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area04','4C','manual')">Manual</button></td></tr>
+                <tr><td><strong>5A</strong></td><td>Track III &bull; Machines-I</td><td><strong>Single-Phase Transformer (OC/SC)</strong></td><td>Equivalent circuit parameters, voltage regulation, and efficiency vs. load</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area05','5A','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area05','5A','manual')">Manual</button></td></tr>
+                <tr><td><strong>5B</strong></td><td>Track III &bull; Machines-I</td><td><strong>DC Shunt &amp; Series Motor Control</strong></td><td>Speed-torque characteristics under armature voltage V<sub>a</sub> and flux I<sub>f</sub> control</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area05','5B','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area05','5B','manual')">Manual</button></td></tr>
+                <tr><td><strong>5C</strong></td><td>Track III &bull; Machines-I</td><td><strong>DC Generator OCC &amp; Load Curves</strong></td><td>Open-Circuit Magnetization E<sub>g</sub> vs. I<sub>f</sub> and terminal voltage droop V<sub>t</sub></td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area05','5C','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area05','5C','manual')">Manual</button></td></tr>
+                <tr><td><strong>6A</strong></td><td>Track III &bull; Machines-II</td><td><strong>3-Phase Induction Motor Torque-Slip</strong></td><td>Effect of rotor resistance R<sub>2</sub>' on starting torque, pull-out torque, and slip</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area06','6A','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area06','6A','manual')">Manual</button></td></tr>
+                <tr><td><strong>6B</strong></td><td>Track III &bull; Machines-II</td><td><strong>Synchronous Motor V-Curves &amp; PF</strong></td><td>Armature current I<sub>a</sub> vs. field excitation I<sub>f</sub> from lagging to leading PF</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area06','6B','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area06','6B','manual')">Manual</button></td></tr>
+                <tr><td><strong>7A</strong></td><td>Track IV &bull; Control</td><td><strong>PID Controller Step Response</strong></td><td>Closed-loop K<sub>p</sub>, K<sub>i</sub>, K<sub>d</sub> tuning with Rise Time, Overshoot %OS, and Settling</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area07','7A','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area07','7A','manual')">Manual</button></td></tr>
+                <tr><td><strong>7B</strong></td><td>Track IV &bull; Control</td><td><strong>Bode Plot &amp; Stability Margins</strong></td><td>Log-frequency magnitude (dB) and phase (&deg;) plots with Gain &amp; Phase Margins</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area07','7B','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area07','7B','manual')">Manual</button></td></tr>
+                <tr><td><strong>8A</strong></td><td>Track IV &bull; Power</td><td><strong>Controlled SCR Rectifier</strong></td><td>Half-wave and full-wave SCR bridge firing angle &alpha;, R-L load, and FWD</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area08','8A','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area08','8A','manual')">Manual</button></td></tr>
+                <tr><td><strong>8B</strong></td><td>Track IV &bull; Power</td><td><strong>DC-DC Buck &amp; Boost Converters</strong></td><td>Duty cycle D switching waveforms showing inductor ripple &Delta;i<sub>L</sub> in CCM/DCM</td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area08','8B','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area08','8B','manual')">Manual</button></td></tr>
+                <tr><td><strong>8C</strong></td><td>Track IV &bull; Power</td><td><strong>Single-Phase SPWM Inverter</strong></td><td>Sinusoidal pulse-width modulation gating, switched bridge output, and V<sub>o1</sub></td><td><button class="btn btn-sm btn-primary" onclick="launchExp('area08','8C','sim')">Sim</button> <button class="btn btn-sm" onclick="launchExp('area08','8C','manual')">Manual</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -2268,11 +2601,25 @@
       </section>
 
       <!-- =================================================================
-           09. ACADEMIC RESOURCES HUB (FORMULAS, VIVA QUIZ & LOGBOOK)
+           09. ACADEMIC RESOURCES HUB (COMPLETE LAB MANUALS, FORMULAS, VIVA & LOGBOOK)
       ================================================================== -->
       <section id="view-area09" class="area-view hidden">
-        <!-- 9A: Formula Handbook -->
+        <!-- 9A: All-in-One Complete Lab Manuals & Notes Directory -->
         <div id="sub-9A" class="sub-pane">
+          <div class="panel" style="margin-bottom: 1.25rem;">
+            <div class="panel-title">
+              <span>All-in-One Practical Lab Manual &amp; Notes (22 Experiments)</span>
+              <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+                <select id="masterManualSelect" style="width:auto; min-width:260px;"></select>
+                <button class="btn btn-primary btn-sm" onclick="launchSelectedManualSim()">Open Live Simulator &rarr;</button>
+              </div>
+            </div>
+            <div id="masterManualViewer"></div>
+          </div>
+        </div>
+
+        <!-- 9B: Formula Handbook -->
+        <div id="sub-9B" class="sub-pane hidden">
           <div class="panel" style="margin-bottom: 1.25rem;">
             <div class="panel-title">
               <span>Standard EEE Formula &amp; Constants Handbook</span>
@@ -2323,16 +2670,16 @@
           </div>
         </div>
 
-        <!-- 9B: Interactive Viva-Voce Exam Questions -->
-        <div id="sub-9B" class="sub-pane hidden">
+        <!-- 9C: Interactive Viva-Voce Exam Questions -->
+        <div id="sub-9C" class="sub-pane hidden">
           <div class="panel">
             <div class="panel-title">Interactive Laboratory Viva-Voce &amp; Self-Assessment</div>
             <div class="resource-grid" id="vivaCardsGrid"></div>
           </div>
         </div>
 
-        <!-- 9C: Student Observation Logbook & CSV Export -->
-        <div id="sub-9C" class="sub-pane hidden">
+        <!-- 9D: Student Observation Logbook & CSV Export -->
+        <div id="sub-9D" class="sub-pane hidden">
           <div class="panel">
             <div class="panel-title">
               <span>Recorded Experimental Observation Table</span>
@@ -2386,11 +2733,108 @@
 
   <script>
     // =========================================================================
+    // 0. CHROME TAB MICROSCOPE PNG FAVICON GENERATOR
+    // =========================================================================
+    function generateMicroscopePngFavicon() {
+      try {
+        const c = document.createElement('canvas');
+        c.width = 64;
+        c.height = 64;
+        const ctx = c.getContext('2d');
+
+        // Crisp white rounded badge background for Chrome dark & light tabs
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.roundRect(2, 2, 60, 60, 12);
+        ctx.fill();
+
+        ctx.save();
+        // Base foot
+        ctx.fillStyle = '#CBD5E1';
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.roundRect(16, 51, 34, 6, 3);
+        ctx.fill();
+        ctx.stroke();
+
+        // Curved C-arm
+        ctx.strokeStyle = '#94A3B8';
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(25, 51);
+        ctx.quadraticCurveTo(13, 36, 26, 20);
+        ctx.stroke();
+
+        // Pivot hinge
+        ctx.fillStyle = '#64748B';
+        ctx.beginPath();
+        ctx.arc(26, 46, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Specimen stage
+        ctx.strokeStyle = '#0F172A';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(27, 36);
+        ctx.lineTo(44, 28);
+        ctx.stroke();
+
+        // Sub-stage condenser / mirror
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(31, 43);
+        ctx.lineTo(45, 43);
+        ctx.stroke();
+
+        // Angled optical barrel & black eyepiece
+        ctx.save();
+        ctx.translate(28, 22);
+        ctx.rotate(-0.55);
+        // Black eyepiece tube
+        ctx.fillStyle = '#0F172A';
+        ctx.fillRect(-3.5, -16, 7, 10);
+        // Silver body tube
+        ctx.fillStyle = '#E2E8F0';
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1.2;
+        ctx.fillRect(-4.5, -6, 9, 14);
+        ctx.strokeRect(-4.5, -6, 9, 14);
+        // Revolving nosepiece & objective lenses
+        ctx.fillStyle = '#64748B';
+        ctx.fillRect(-6, 8, 12, 3);
+        ctx.fillStyle = '#94A3B8';
+        ctx.fillRect(-2, 11, 4, 6);
+        ctx.restore();
+
+        // Coarse focus knob
+        ctx.fillStyle = '#1E293B';
+        ctx.beginPath();
+        ctx.arc(23, 21, 4.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#CBD5E1';
+        ctx.beginPath();
+        ctx.arc(23, 21, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+
+        const link = document.getElementById('chromeFavicon');
+        if (link) link.href = c.toDataURL('image/png');
+      } catch (e) {
+        // Fallback keeps href="PhotoshopExtension_Image.png"
+      }
+    }
+
+    // =========================================================================
     // 1. PORTAL STATE, THEME TOGGLE, HOME NAVIGATION & TOASTS
     // =========================================================================
     let isDark = false;
     let activeArea = 'area00';
     let activeSub = '';
+    let benchMode = 'sim'; // 'sim' or 'manual'
     const probeState = {}; // stores { xNorm, yNorm, active } per canvasId
     const logbookEntries = [];
 
@@ -2630,23 +3074,29 @@
       },
       area09: {
         kicker: 'Student & Faculty Academic Resources Hub',
-        title: '09. Formulas, Viva-Voce Quiz & Observation Logbook',
+        title: '09. Lab Manuals, Formulas, Viva-Voce & Observation Logbook',
         subs: [
           {
             id: '9A',
-            label: '9A. Standard EEE Formula Handbook',
+            label: '9A. Complete Lab Manuals & Notes (All 22)',
+            eq: 'Aim, Apparatus Specifications, SVG Circuit Diagrams, Theory, Procedure & Precautions',
+            principle: 'Select any of the 22 experiments from the dropdown below to inspect its complete laboratory manual record sheet, or click "Open Live Simulator" to jump directly to its interactive workbench.'
+          },
+          {
+            id: '9B',
+            label: '9B. Standard EEE Formula Handbook',
             eq: 'Quick-Reference Engineering Equations & Laboratory Constants',
             principle: 'Use the filter bar below to quickly look up governing equations for circuit transients, machines, power electronics, and control engineering.'
           },
           {
-            id: '9B',
-            label: '9B. Interactive Lab Viva-Voce Self-Test',
+            id: '9C',
+            label: '9C. Interactive Lab Viva-Voce Self-Test',
             eq: 'Oral Examination Questions & Conceptual Answers',
             principle: 'Test your conceptual understanding before university practical exams. Tap "Reveal Answer" on any question card to inspect the engineering explanation.'
           },
           {
-            id: '9C',
-            label: '9C. Student Observation Table & CSV Export',
+            id: '9D',
+            label: '9D. Student Observation Table & CSV Export',
             eq: 'Recorded Experimental Data Logbook',
             principle: 'All readings recorded from any of the 22 experiment benches appear in the structured table below and can be exported to CSV for lab records.'
           }
@@ -2654,7 +3104,727 @@
       }
     };
 
-    function switchArea(areaId, preferredSubId = null) {
+    // =========================================================================
+    // 2B. COMPLETE LAB MANUALS & RESOURCES DATABASE (ALL 22 EXPERIMENTS)
+    // =========================================================================
+    const labManualDatabase = {
+      '1A': {
+        area: 'area01', code: '1A', title: 'Transient Response of Series RLC Circuit (Step Input)',
+        aim: 'To study the second-order step response of a series R-L-C circuit and observe Underdamped, Critically Damped, and Overdamped voltage and current transients.',
+        apparatus: [
+          ['DC Regulated Step Power Supply', '0 – 30 V DC, 2 A', '1 No.'],
+          ['Decade Resistance Box (DRB)', '1 Ω – 10 kΩ', '1 No.'],
+          ['Standard Air/Ferrite Core Inductor', '10 mH – 200 mH', '1 No.'],
+          ['Decade Capacitance Box (DCB)', '1 µF – 100 µF', '1 No.'],
+          ['Dual-Trace Digital Storage Oscilloscope', '50 MHz, 2-Channel', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="45" cy="65" r="16" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="36" y="69" font-size="11" font-weight="bold" fill="currentColor">Vs</text>
+          <polyline points="45,49 45,25 105,25" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="105" y="17" width="48" height="16" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="124" y="12" font-size="11" font-weight="bold" fill="currentColor">R</text>
+          <line x1="153" y1="25" x2="195" y2="25" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M195,25 Q203,11 211,25 Q219,11 227,25 Q235,11 243,25 Q251,11 259,25" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="223" y="12" font-size="11" font-weight="bold" fill="currentColor">L</text>
+          <polyline points="259,25 345,25 345,56" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="326" y1="56" x2="364" y2="56" stroke="currentColor" stroke-width="2.4"/>
+          <line x1="326" y1="68" x2="364" y2="68" stroke="currentColor" stroke-width="2.4"/>
+          <text x="372" y="66" font-size="11" font-weight="bold" fill="currentColor">C (Vc)</text>
+          <polyline points="345,68 345,105 45,105 45,81" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="145" y="122" font-size="10" fill="currentColor">Fig 1A: Series R-L-C Step Transient Circuit</text>
+        </svg>`,
+        theory: 'In a series R-L-C network excited by a DC step Vs, Kirchhoff’s Voltage Law gives L(di/dt) + Ri + (1/C)∫i dt = Vs. Defining natural frequency ω₀ = 1/√(LC) and damping ratio ζ = (R/2)√(C/L): when ζ < 1 the system oscillates with damped frequency ωd = ω₀√(1−ζ²); at ζ = 1 it reaches steady state fastest without overshoot; for ζ > 1 two real exponential poles govern a sluggish rise.',
+        procedure: [
+          'Connect the DC step source, Decade Resistance Box (R), Inductor (L = 50 mH), and Capacitor (C = 20 µF) in series.',
+          'Connect CH1 of the oscilloscope across the capacitor C to monitor Vc(t) and CH2 across a small sensing resistor to view i(t).',
+          'Set R = 20 Ω (ζ = 0.20) and record the peak overshoot voltage and ringing period.',
+          'Increase R to the critical damping value R_crit = 2√(L/C) = 100 Ω (ζ = 1.0) and verify the elimination of overshoot.',
+          'Increase R further to 200 Ω (ζ = 2.0) to observe an overdamped response and log readings to the observation table.'
+        ],
+        precautions: 'Discharge the capacitor completely before altering component values. Ensure the oscilloscope ground clip is attached to the negative terminal of Vs.'
+      },
+      '1B': {
+        area: 'area01', code: '1B', title: 'Frequency Response & Resonance in Series RLC Circuit',
+        aim: 'To plot the current versus frequency curve of a series R-L-C circuit and determine the resonant frequency (f₀), half-power bandwidth (BW), and Quality Factor (Q).',
+        apparatus: [
+          ['Audio Frequency Function Generator', '10 Hz – 1 MHz, 10 Vpp', '1 No.'],
+          ['Digital AC Milliammeter / DMM', '0 – 500 mA AC', '1 No.'],
+          ['Standard Inductor & Capacitor', '50 mH, 20 µF', '1 Each'],
+          ['Non-Inductive Resistor', '20 Ω – 100 Ω', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="48" cy="65" r="16" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M40,65 Q44,57 48,65 Q52,73 56,65" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <text x="15" y="69" font-size="10" fill="currentColor">AC Vs</text>
+          <polyline points="48,49 48,25 110,25" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="110" y="17" width="46" height="16" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="128" y="12" font-size="11" fill="currentColor">R</text>
+          <path d="M180,25 Q188,11 196,25 Q204,11 212,25 Q220,11 228,25" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="156" y1="25" x2="180" y2="25" stroke="currentColor" stroke-width="1.6"/>
+          <text x="200" y="12" font-size="11" fill="currentColor">L</text>
+          <line x1="228" y1="25" x2="275" y2="25" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="275" y1="13" x2="275" y2="37" stroke="currentColor" stroke-width="2.2"/>
+          <line x1="285" y1="13" x2="285" y2="37" stroke="currentColor" stroke-width="2.2"/>
+          <text x="276" y="10" font-size="11" fill="currentColor">C</text>
+          <polyline points="285,25 355,25 355,105 48,105 48,81" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="145" y="122" font-size="10" fill="currentColor">Fig 1B: Series AC Resonance Circuit</text>
+        </svg>`,
+        theory: 'At resonance, inductive reactance XL = 2πf₀L equals capacitive reactance XC = 1/(2πf₀C), yielding f₀ = 1/(2π√LC). Net impedance becomes purely resistive (Z = R), current peaks at Imax = Vs/R, and half-power frequencies f₁, f₂ occur where I = Imax/√2, giving Q = f₀/(f₂ − f₁) = ω₀L/R.',
+        procedure: [
+          'Set the AC function generator to constant sinusoidal output amplitude Vs = 10 V.',
+          'Sweep the excitation frequency from 30 Hz up to 350 Hz in uniform steps.',
+          'Note the frequency f₀ where circuit current reaches its sharp maximum and phase angle crosses 0°.',
+          'Identify the lower (f₁) and upper (f₂) half-power frequencies where I = 0.707·Imax and compute Q = f₀/(f₂ − f₁).'
+        ],
+        precautions: 'Keep the AC supply amplitude constant throughout the frequency sweep. Note that capacitor and inductor individual voltages can exceed Vs by a factor of Q at resonance.'
+      },
+      '1C': {
+        area: 'area01', code: '1C', title: 'Verification of Thevenin’s & Maximum Power Transfer Theorems',
+        aim: 'To determine the Thevenin equivalent parameters (Vth, Rth) of a linear DC network and verify that maximum power is transferred to the load when RL = Rth.',
+        apparatus: [
+          ['Regulated DC Power Supply', '0 – 30 V DC', '1 No.'],
+          ['Variable Load Rheostat (RL)', '0 – 250 Ω, 2 A', '1 No.'],
+          ['Digital Voltmeter & Ammeter', '0 – 50 V, 0 – 2 A', '1 Each']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <rect x="35" y="20" width="175" height="85" rx="4" fill="none" stroke="currentColor" stroke-dasharray="4,3"/>
+          <text x="55" y="14" font-size="10" font-weight="bold" fill="currentColor">Thevenin Equivalent Network</text>
+          <circle cx="70" cy="65" r="15" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="59" y="69" font-size="10" fill="currentColor">Vth</text>
+          <polyline points="70,50 70,35 115,35" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="115" y="28" width="46" height="14" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="128" y="24" font-size="10" fill="currentColor">Rth</text>
+          <line x1="161" y1="35" x2="295" y2="35" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="287" y="48" width="16" height="36" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="310" y="70" font-size="11" font-weight="bold" fill="currentColor">RL</text>
+          <line x1="295" y1="35" x2="295" y2="48" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="295,84 295,98 70,98 70,80" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>`,
+        theory: 'Any active linear bilateral two-terminal DC network can be replaced by an open-circuit voltage source Vth in series with internal resistance Rth. Load power PL = [Vth/(Rth + RL)]²·RL reaches its maximum Pmax = Vth²/(4Rth) when RL = Rth, at which transfer efficiency is exactly 50%.',
+        procedure: [
+          'Set Vth = 24 V and internal resistance Rth = 50 Ω.',
+          'Vary load resistance RL from 5 Ω to 250 Ω in steps of 15 Ω.',
+          'Record load current IL, load voltage VL, load power PL = VL·IL, and efficiency η = RL/(Rth + RL).',
+          'Verify that PL peaks at RL = 50 Ω (Pmax = 2.88 W, η = 50%).'
+        ],
+        precautions: 'Never set RL = 0 Ω (short circuit) on physical power supplies without current limiting.'
+      },
+      '2A': {
+        area: 'area02', code: '2A', title: 'Measurement of Frequency, Amplitude & Phase using Dual-Trace CRO',
+        aim: 'To generate standard waveforms (Sine, Square, Triangle) using a Function Generator and measure peak voltage, RMS voltage, time period, frequency, and phase shift on a Dual-Trace CRO.',
+        apparatus: [
+          ['Dual-Trace Cathode Ray Oscilloscope', '20 MHz – 50 MHz', '1 No.'],
+          ['Dual-Channel Function Generator', '0.1 Hz – 2 MHz', '1 No.'],
+          ['BNC-to-Alligator Coaxial Probes', '1X / 10X', '2 Nos.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <rect x="30" y="25" width="110" height="75" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="45" y="55" font-size="11" font-weight="bold" fill="currentColor">Function Gen</text>
+          <text x="45" y="72" font-size="10" fill="currentColor">CH1 &amp; CH2 Out</text>
+          <line x1="140" y1="45" x2="225" y2="45" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="140" y1="80" x2="225" y2="80" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="225" y="18" width="155" height="90" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="238" y="28" width="95" height="70" fill="none" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M242,63 Q265,33 285,63 T328,63" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <text x="342" y="52" font-size="10" fill="currentColor">CRO</text>
+        </svg>`,
+        theory: 'In Y-T (time-base) mode, the horizontal sweep voltage moves the electron beam linearly with time while vertical deflection plates display instantaneous signal voltages. Peak-to-peak divisions multiplied by Volts/Div yield Vpp, and horizontal cycle divisions multiplied by Time/Div yield period T = 1/f.',
+        procedure: [
+          'Connect CH1 and CH2 outputs of the Function Generator to the X/Y inputs of the CRO.',
+          'Adjust CH1 frequency to 100 Hz and amplitude to 3.0 V peak; measure the horizontal period T = 10.0 ms.',
+          'Introduce a phase shift Δφ = 90° on CH2 and measure the horizontal time delay Δt between zero-crossings.',
+          'Calculate phase difference using Δφ = (Δt / T) × 360°.'
+        ],
+        precautions: 'Ensure both CRO probe ground clips are connected to the common reference terminal to avoid ground-loop shorts.'
+      },
+      '2B': {
+        area: 'area02', code: '2B', title: 'Phase & Frequency Measurement using X-Y Lissajous Figures',
+        aim: 'To operate the CRO in X-Y mode and determine unknown phase angles and integer frequency ratios from Lissajous figures.',
+        apparatus: [
+          ['Dual-Channel CRO with X-Y Mode', '50 MHz', '1 No.'],
+          ['Two Synchronized Signal Generators', '10 Hz – 100 kHz', '2 Nos.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <rect x="115" y="15" width="190" height="95" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="210" y1="15" x2="210" y2="110" stroke="currentColor" stroke-dasharray="3,3"/>
+          <line x1="115" y1="62" x2="305" y2="62" stroke="currentColor" stroke-dasharray="3,3"/>
+          <ellipse cx="210" cy="62" rx="60" ry="30" transform="rotate(-25 210 62)" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="125" y="30" font-size="10" fill="currentColor">X-Y Mode: sin(Δφ) = Y₀ / Ymax</text>
+        </svg>`,
+        theory: 'When two sinusoids x(t) = A·sin(ω₁t) and y(t) = B·sin(ω₂t + Δφ) drive the X and Y deflection plates simultaneously, the beam traces a parametric Lissajous curve. For f₁ = f₂, Δφ = sin⁻¹(Y_intercept / Y_max). For unequal frequencies, f_Y / f_X equals the ratio of horizontal to vertical tangent points.',
+        procedure: [
+          'Switch the CRO timebase selector to X-Y mode and center the spot at the origin.',
+          'Set f₁ = f₂ = 100 Hz and vary phase Δφ from 0° (straight line) to 90° (circle/ellipse) and 180°.',
+          'Change f₂ to 200 Hz (2:1 ratio) to observe a figure-eight loop and count tangent intersections.'
+        ],
+        precautions: 'Keep X and Y channel Volts/Div sensitivities equal when verifying circular 90° phase plots.'
+      },
+      '2C': {
+        area: 'area02', code: '2C', title: 'Measurement of Inductance & Frequency using AC Bridges (Maxwell & Wien)',
+        aim: 'To balance an AC Wheatstone bridge to null detector deflection and determine unknown self-inductance (Maxwell Bridge) and signal frequency (Wien Bridge).',
+        apparatus: [
+          ['AC Bridge Trainer Kit', '1 kHz Internal Oscillator', '1 No.'],
+          ['Decade Resistance & Capacitance Boxes', '0.01 µF – 1 µF, 1 Ω – 10 kΩ', '2 Nos.'],
+          ['AC Null Detector / Headphone / CRO', 'High Sensitivity', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <polygon points="210,15 135,65 210,115 285,65" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="135" y1="65" x2="285" y2="65" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="210" cy="65" r="14" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+          <text x="199" y="69" font-size="10" font-weight="bold" fill="currentColor">DET</text>
+          <text x="132" y="36" font-size="10" fill="currentColor">Arm Z₁</text>
+          <text x="255" y="36" font-size="10" fill="currentColor">Arm Z₂</text>
+          <text x="132" y="102" font-size="10" fill="currentColor">Arm Z₃</text>
+          <text x="255" y="102" font-size="10" fill="currentColor">Unknown Z₄</text>
+        </svg>`,
+        theory: 'An AC bridge achieves null balance (Vdet = 0) when complex impedance products of opposite arms satisfy Z₁·Z₄ = Z₂·Z₃, requiring both magnitude and phase angle balance. In Maxwell’s Inductance-Capacitance bridge, Lx = R₂·R₃·C₁ and Rx = (R₂·R₃)/R₁. In Wien’s bridge, f₀ = 1/(2π√(R₁R₂C₁C₂)).',
+        procedure: [
+          'Select Maxwell L-C Bridge mode and excite the bridge with a 1 kHz AC source.',
+          'Adjust variable resistor R₁ and standard capacitor C₁ iteratively until the AC detector meter reads 0.00 V.',
+          'Compute unknown inductance Lx = R₂·R₃·C₁ and verify against the true value (400 mH).',
+          'Switch to Wien Bridge mode and tune R₁ and C₁ to find the null balance frequency f₀.'
+        ],
+        precautions: 'Balance resistive and reactive controls alternately because both magnitude and phase equations must be satisfied simultaneously.'
+      },
+      '3A': {
+        area: 'area03', code: '3A', title: 'V-I Characteristics of PN Junction (Si/Ge) & Zener Breakdown Diode',
+        aim: 'To plot the forward and reverse V-I characteristics of Silicon, Germanium, and Zener diodes and determine knee voltage (Vk) and Zener breakdown voltage (Vz).',
+        apparatus: [
+          ['Variable Dual-Polarity DC Supply', '0 – 15 V DC', '1 No.'],
+          ['Diodes: 1N4007 (Si), OA79 (Ge), 1N4733A (5.1V Zener)', 'Standard', '1 Each'],
+          ['Current Limiting Resistor', '100 Ω – 500 Ω, 2 W', '1 No.'],
+          ['Digital Voltmeter & Milliammeter', '0 – 20 V, 0 – 100 mA', '1 Each']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="55" cy="65" r="15" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="47" y="69" font-size="10" fill="currentColor">Vs</text>
+          <polyline points="55,50 55,28 115,28" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="115" y="21" width="46" height="14" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="131" y="16" font-size="10" fill="currentColor">Rs</text>
+          <line x1="161" y1="28" x2="265" y2="28" stroke="currentColor" stroke-width="1.6"/>
+          <polygon points="253,52 277,52 265,74" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="253" y1="74" x2="277" y2="74" stroke="currentColor" stroke-width="2"/>
+          <line x1="265" y1="28" x2="265" y2="52" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="265,74 265,102 55,102 55,80" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="288" y="67" font-size="10" font-weight="bold" fill="currentColor">PN / Zener</text>
+        </svg>`,
+        theory: 'The Shockley diode equation I = Is(e^(V/nVT) − 1) governs conduction. Beyond the barrier knee voltage (≈0.7 V for Si, ≈0.3 V for Ge), current rises exponentially. In reverse bias, a heavily doped Zener diode undergoes controlled avalanche/Zener breakdown at −Vz, clamping voltage nearly constant across wide current variations.',
+        procedure: [
+          'Select Silicon PN Junction and increase forward supply Vs from 0 V to 5 V while observing the knee at 0.7 V.',
+          'Switch to Germanium diode and note the lower cut-in knee voltage at 0.3 V.',
+          'Select Zener Breakdown Diode (Vz = 5.1 V) and sweep Vs into reverse bias (−9 V) to observe voltage clamping at −5.1 V.'
+        ],
+        precautions: 'Always include a series current-limiting resistor Rs to prevent thermal runaway in forward or Zener breakdown regions.'
+      },
+      '3B': {
+        area: 'area03', code: '3B', title: 'BJT Common-Emitter Output Characteristics & DC Load Line Q-Point',
+        aim: 'To obtain the collector output characteristics (IC vs. VCE) of an NPN transistor in Common-Emitter configuration and locate the quiescent Q-point on the DC Load Line.',
+        apparatus: [
+          ['NPN Bipolar Junction Transistor', 'BC107 / 2N2222 (β ≈ 150)', '1 No.'],
+          ['Dual Variable DC Power Supplies', '0 – 15 V', '2 Nos.'],
+          ['Microammeter (IB) & Milliammeter (IC)', '0 – 100 µA, 0 – 50 mA', '1 Each'],
+          ['Base & Collector Resistors', '100 kΩ, 1 kΩ', '1 Each']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="210" cy="65" r="22" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="202" y1="53" x2="202" y2="77" stroke="currentColor" stroke-width="2.4"/>
+          <line x1="150" y1="65" x2="202" y2="65" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="202" y1="58" x2="222" y2="45" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="202" y1="72" x2="222" y2="85" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="222,45 222,20 275,20" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="280" y="24" font-size="10" font-weight="bold" fill="currentColor">+VCC (via RC)</text>
+          <polyline points="222,85 222,108 150,108" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="115" y="69" font-size="10" fill="currentColor">IB In</text>
+        </svg>`,
+        theory: 'In the active region, collector current IC ≈ β·IB is nearly independent of VCE. Plotting the DC load line equation VCC = VCE + IC·RC from cutoff (VCE = VCC, IC = 0) to saturation (VCE ≈ 0, IC = VCC/RC) identifies the operating Q-point at the intersection with the chosen IB curve.',
+        procedure: [
+          'Set base current IB = 40 µA, collector supply VCC = 12.0 V, and collector resistor RC = 1000 Ω.',
+          'Observe the family of collector curves for IB = 10 µA to 80 µA.',
+          'Read the Q-point coordinates (VCEQ, ICQ) and adjust VCC or RC to center the Q-point in the active region.'
+        ],
+        precautions: 'Do not exceed maximum collector power dissipation PD,max of the transistor.'
+      },
+      '3C': {
+        area: 'area03', code: '3C', title: 'Linear & Non-Linear Applications of Operational Amplifier (IC 741)',
+        aim: 'To verify voltage gain, phase inversion, and ±15 V supply saturation clipping in Inverting, Non-Inverting, and Active Integrator Op-Amp configurations.',
+        apparatus: [
+          ['Operational Amplifier IC', 'µA741 / TL081', '1 No.'],
+          ['Dual Regulated DC Power Supply', '±15 V DC', '1 No.'],
+          ['Resistors & Feedback Capacitor', '10 kΩ, 30 kΩ, 0.01 µF', '1 Set'],
+          ['Function Generator & Dual-Trace CRO', 'Standard', '1 Each']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <polygon points="175,30 175,98 255,64" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <text x="184" y="54" font-size="13" font-weight="bold" fill="currentColor">&minus;</text>
+          <text x="184" y="82" font-size="13" font-weight="bold" fill="currentColor">+</text>
+          <line x1="65" y1="50" x2="105" y2="50" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="105" y="44" width="38" height="12" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="115" y="39" font-size="10" fill="currentColor">Rin</text>
+          <line x1="143" y1="50" x2="175" y2="50" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="158,50 158,18 195,18" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="195" y="12" width="42" height="12" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="210" y="9" font-size="10" fill="currentColor">Rf</text>
+          <polyline points="237,18 275,18 275,64" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="255" y1="64" x2="325" y2="64" stroke="currentColor" stroke-width="1.6"/>
+          <text x="330" y="68" font-size="10" font-weight="bold" fill="currentColor">Vout</text>
+          <polyline points="175,78 145,78 145,105" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="135" y1="105" x2="155" y2="105" stroke="currentColor" stroke-width="2"/>
+        </svg>`,
+        theory: 'Under negative feedback, virtual short keeps V+ ≈ V−. For an Inverting amplifier, Av = −Rf/Rin (180° phase shift); for Non-Inverting, Av = 1 + Rf/Rin (0° phase shift). Whenever |Av·Vin| exceeds the ±15 V bias rails, output peaks clip flat at ±15 V.',
+        procedure: [
+          'Select Inverting Amplifier with Rin = 10 kΩ and Rf = 30 kΩ (Av = −3.0).',
+          'Set Vin = 3.0 V peak and verify an undistorted inverted output of 9.0 V peak.',
+          'Increase Vin to 6.0 V peak and observe flat-topped saturation clipping at ±15 V.',
+          'Switch to Non-Inverting and Active Integrator modes to inspect phase shifts.'
+        ],
+        precautions: 'Always verify ±15 V dual rail polarity before powering IC 741.'
+      },
+      '4A': {
+        area: 'area04', code: '4A', title: 'Boolean Function Minimization using Karnaugh Map & Gate Realization',
+        aim: 'To simplify 2, 3, and 4-variable Boolean expressions with Don’t-Care conditions using Gray-code Karnaugh Maps and realize the minimized Sum-of-Products (SOP) circuit.',
+        apparatus: [
+          ['Digital Logic Trainer Kit', '+5 V TTL Supply', '1 No.'],
+          ['Quad 2-Input AND, OR & Hex Inverter ICs', '74LS08, 74LS32, 74LS04', '1 Each'],
+          ['Logic LED Indicators & Patch Cords', 'Standard', '1 Set']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <line x1="65" y1="42" x2="130" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="65" y1="68" x2="130" y2="68" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M130,32 L158,32 A23,23 0 0,1 158,78 L130,78 Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <polyline points="181,55 225,55 225,60 250,60" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M245,45 Q275,45 292,65 Q275,85 245,85 Q256,65 245,45 Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="292" y1="65" x2="345" y2="65" stroke="currentColor" stroke-width="1.6"/>
+          <text x="352" y="69" font-size="11" font-weight="bold" fill="currentColor">F (SOP)</text>
+        </svg>`,
+        theory: 'Karnaugh Maps arrange minterms in reflected Gray code so adjacent cells differ in exactly one literal. Grouping adjacent 1s (and optional X Don’t-Cares) in sizes 2^k eliminates k variables, yielding a minimal two-level AND-OR logic implementation.',
+        procedure: [
+          'Select 4-Variable K-Map mode and enter the target truth table minterms (0, 1, or X).',
+          'Observe the minimized SOP Boolean expression and active minterm list.',
+          'Trace the synthesized two-level AND-OR gate diagram and verify outputs for all input combinations.'
+        ],
+        precautions: 'Connect unused TTL gate inputs to +5 V (through 1 kΩ) or GND rather than leaving them floating.'
+      },
+      '4B': {
+        area: 'area04', code: '4B', title: 'Verification of Combinational Logic: 4:1 Multiplexer & 1-Bit Full Adder',
+        aim: 'To verify the truth tables and gate-level signal routing of a 4:1 Data Multiplexer and a 1-Bit Binary Full Adder.',
+        apparatus: [
+          ['IC 74LS153 (Dual 4:1 MUX) & IC 74LS86/08/32', 'TTL +5 V', '1 Set'],
+          ['Digital Trainer Board with Logic Switches', '8-Bit Switch & LED Bank', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <polygon points="165,20 245,38 245,92 165,110" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <text x="182" y="69" font-size="11" font-weight="bold" fill="currentColor">4:1 MUX</text>
+          <line x1="115" y1="35" x2="165" y2="35" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="115" y1="55" x2="165" y2="55" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="115" y1="75" x2="165" y2="75" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="115" y1="95" x2="165" y2="95" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="245" y1="65" x2="310" y2="65" stroke="currentColor" stroke-width="1.8"/>
+          <text x="316" y="69" font-size="11" font-weight="bold" fill="currentColor">Y</text>
+        </svg>`,
+        theory: 'A 4:1 Multiplexer selects one of four inputs (I₀–I₃) using two select bits S₁S₀: Y = S₁\'S₀\'I₀ + S₁\'S₀I₁ + S₁S₀\'I₂ + S₁S₀I₃. A 1-Bit Full Adder adds three bits (A, B, Cin) to generate Sum = A ⊕ B ⊕ Cin and Carry Cout = AB + Cin(A ⊕ B).',
+        procedure: [
+          'In 4:1 MUX mode, set data inputs I₀..I₃ and sweep select lines S₁S₀ from 00 to 11 while checking the highlighted truth-table row.',
+          'Switch to 1-Bit Full Adder mode and toggle inputs A, B, and Cin across all 8 binary combinations to verify Sum and Cout.'
+        ],
+        precautions: 'Verify Vcc (+5 V) on Pin 16/14 and GND on Pin 8/7 before energizing TTL ICs.'
+      },
+      '4C': {
+        area: 'area04', code: '4C', title: 'Sequential Logic: Master-Slave JK Flip-Flop & Mod-8 Ripple Counter',
+        aim: 'To verify the toggle operation of a negative-edge-triggered JK Flip-Flop and observe frequency division in a 3-bit asynchronous Mod-8 binary ripple counter.',
+        apparatus: [
+          ['Dual JK Master-Slave Flip-Flop IC', 'IC 74LS76 (2 Nos.)', '2 Nos.'],
+          ['Mono-Pulse Debounced Clock & Logic Analyzer', '0 – 1 Hz Manual / 1 kHz', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <rect x="65" y="30" width="65" height="65" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="84" y="66" font-size="11" font-weight="bold" fill="currentColor">FF 0</text>
+          <rect x="175" y="30" width="65" height="65" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="194" y="66" font-size="11" font-weight="bold" fill="currentColor">FF 1</text>
+          <rect x="285" y="30" width="65" height="65" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="304" y="66" font-size="11" font-weight="bold" fill="currentColor">FF 2</text>
+          <line x1="25" y1="62" x2="65" y2="62" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="130" y1="62" x2="175" y2="62" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="240" y1="62" x2="285" y2="62" stroke="currentColor" stroke-width="1.6"/>
+          <text x="22" y="54" font-size="10" fill="currentColor">CLK</text>
+        </svg>`,
+        theory: 'With J = K = 1, a JK flip-flop toggles its output state on every active falling clock edge. Connecting Q₀ to the clock input of FF₁ and Q₁ to FF₂ forms a 3-bit Mod-8 ripple counter counting 000 through 111 and dividing clock frequency by 2³ = 8.',
+        procedure: [
+          'Press "Reset (CLR)" to initialize Q₂Q₁Q₀ = 000 and ensure J = K = 1 (Toggle mode).',
+          'Apply successive clock pulses using "Pulse Clock (+1)" and observe the multi-channel timing waveforms for CLK, Q₀, Q₁, and Q₂.',
+          'Switch to J = K = 0 (Hold mode) and verify that clock pulses no longer alter the stored state.'
+        ],
+        precautions: 'Use a debounced clock pulse switch to prevent false multiple edge triggering.'
+      },
+      '5A': {
+        area: 'area05', code: '5A', title: 'Efficiency & Voltage Regulation of Single-Phase Transformer (OC & SC Tests)',
+        aim: 'To predetermine the efficiency and voltage regulation of a single-phase transformer at various loads and power factors using Open-Circuit and Short-Circuit test parameters.',
+        apparatus: [
+          ['Single-Phase Core-Type Transformer', '2 / 5 / 10 kVA, 50 Hz', '1 No.'],
+          ['Single-Phase Auto-Transformer (Variac)', '0 – 270 V, 15 A', '1 No.'],
+          ['LPF & UPF Dynamometer Wattmeters', '300 V / 5 A & 75 V / 20 A', '2 Nos.'],
+          ['Digital Voltmeter & Ammeter', '0 – 300 V, 0 – 25 A', '1 Each']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <path d="M155,25 Q172,35 155,45 Q172,55 155,65 Q172,75 155,85 Q172,95 155,105" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="204" y1="22" x2="204" y2="108" stroke="currentColor" stroke-width="2"/>
+          <line x1="214" y1="22" x2="214" y2="108" stroke="currentColor" stroke-width="2"/>
+          <path d="M265,25 Q248,35 265,45 Q248,55 265,65 Q248,75 265,85 Q248,95 265,105" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="85" y1="25" x2="155" y2="25" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="85" y1="105" x2="155" y2="105" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="265" y1="25" x2="335" y2="25" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="265" y1="105" x2="335" y2="105" stroke="currentColor" stroke-width="1.6"/>
+          <text x="90" y="68" font-size="10" fill="currentColor">Primary V₁</text>
+          <text x="285" y="68" font-size="10" fill="currentColor">Secondary V₂</text>
+        </svg>`,
+        theory: 'The OC test (HV open, LV at rated voltage) measures constant iron loss Pi. The SC test (LV shorted, reduced HV voltage for rated current) measures full-load copper loss Pcu,FL and equivalent impedance Req, Xeq. Efficiency η(x) = (x·S·cosφ)/(x·S·cosφ + Pi + x²Pcu,FL) peaks when x = √(Pi/Pcu,FL).',
+        procedure: [
+          'Select the 5 kVA, 230/115 V transformer rating and set load power factor to 0.85 Lagging.',
+          'Vary fractional load from 5% to 125% and record efficiency η%, voltage regulation %, and total losses.',
+          'Verify that maximum efficiency occurs near 76.9% load where copper loss equals core iron loss (65 W).',
+          'Change power factor to Leading and observe negative voltage regulation (secondary terminal voltage rise).'
+        ],
+        precautions: 'Always keep the Variac at zero position before switching on supply during Short-Circuit testing.'
+      },
+      '5B': {
+        area: 'area05', code: '5B', title: 'Speed Control of DC Shunt & Series Motors (Armature & Field Control)',
+        aim: 'To study the torque-speed characteristics of DC Shunt and Series motors under Armature Voltage Control and Field Flux Weakening Control.',
+        apparatus: [
+          ['DC Shunt / Series Motor-Generator Set', '3 HP, 220 V DC, 1500 RPM', '1 No.'],
+          ['Three-Point DC Starter & Field Rheostat', '220 V, 15 A / 0 – 250 Ω', '1 Each'],
+          ['Digital Non-Contact Tachometer', '0 – 5000 RPM', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="210" cy="65" r="26" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <text x="203" y="70" font-size="13" font-weight="bold" fill="currentColor">M</text>
+          <line x1="80" y1="25" x2="210" y2="25" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="210" y1="25" x2="210" y2="39" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="210" y1="91" x2="210" y2="108" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="80" y1="108" x2="210" y2="108" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M295,38 Q307,46 295,54 Q307,62 295,70 Q307,78 295,86" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="210,25 295,25 295,38" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="295,86 295,108 210,108" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="312" y="66" font-size="10" fill="currentColor">Shunt Field</text>
+        </svg>`,
+        theory: 'Motor speed N = (Va − Ia·Ra)/(k·Φ). Varying armature voltage Va provides constant-torque speed control below rated base speed, while reducing shunt field current If weakens flux Φ to achieve constant-power speed control above base speed. In a DC Series motor, Φ ∝ Ia gives high starting torque and inversely hyperbolic speed-torque behavior.',
+        procedure: [
+          'Select DC Shunt Motor mode with Va = 220 V and If = 1.00 A; vary load torque τ from 2 to 45 N·m and observe the slightly drooping speed curve.',
+          'Reduce field current If to 0.70 A (flux weakening) and verify that motor speed increases above 2000 RPM.',
+          'Switch to DC Series Motor mode and observe high starting torque at low speed and dangerous overspeed at very light load.'
+        ],
+        precautions: 'Never open the shunt field circuit while the motor is running, and never start a DC Series motor without mechanical load.'
+      },
+      '5C': {
+        area: 'area05', code: '5C', title: 'Open-Circuit (OCC) & External Load Characteristics of DC Generator',
+        aim: 'To determine the generated EMF (Eg) versus field excitation (If) and plot the external load characteristic (Vt vs. Ia) of a separately excited DC generator.',
+        apparatus: [
+          ['Separately Excited DC Generator', '3 kW, 230 V, 1500 RPM', '1 No.'],
+          ['Resistive Lamp / Rheostat Load Bank', '0 – 40 A, 230 V', '1 No.'],
+          ['DC Voltmeter & Ammeters', '0 – 300 V, 0 – 50 A', '3 Nos.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="195" cy="65" r="26" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <text x="188" y="70" font-size="13" font-weight="bold" fill="currentColor">G</text>
+          <polyline points="195,39 195,22 315,22" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="307" y="45" width="16" height="40" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="315" y1="22" x2="315" y2="45" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="315,85 315,108 195,108 195,91" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="330" y="68" font-size="10" fill="currentColor">Load RL (Vt)</text>
+        </svg>`,
+        theory: 'Generated armature EMF Eg = (P·Φ·Z·N)/(60·A) increases linearly with field current If until magnetic core saturation causes the magnetization curve to bend. Under load, terminal voltage Vt = Eg − Ia·Ra − ΔV_reaction drops due to armature resistance and cross-magnetizing armature reaction.',
+        procedure: [
+          'Run the prime mover at rated speed N = 1500 RPM and set field excitation If = 1.20 A.',
+          'Increase armature load current Ia from 0 A to 40 A and record terminal voltage Vt and internal drop (Eg − Vt).',
+          'Vary prime mover speed N and verify that Eg scales proportionally with speed.'
+        ],
+        precautions: 'Bring load current Ia to zero before shutting down the prime mover.'
+      },
+      '6A': {
+        area: 'area06', code: '6A', title: 'Torque-Slip Characteristics of 3-Phase Induction Motor',
+        aim: 'To plot the torque-speed/slip characteristic of a 3-phase induction motor and examine the effect of rotor resistance (R2\') on starting torque and pull-out torque.',
+        apparatus: [
+          ['3-Phase Slip-Ring Induction Motor', '5 HP, 400 V, 4-Pole, 50 Hz', '1 No.'],
+          ['3-Phase Rotor Resistance Starter', '0 – 5 Ω per phase', '1 No.'],
+          ['3-Phase Auto-Transformer & Wattmeters', '0 – 440 V, 15 A', '1 Set']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="210" cy="65" r="42" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="210" cy="65" r="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5,3"/>
+          <text x="196" y="69" font-size="10" font-weight="bold" fill="currentColor">3-Ph IM</text>
+          <line x1="95" y1="45" x2="172" y2="45" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="95" y1="65" x2="168" y2="65" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="95" y1="85" x2="172" y2="85" stroke="currentColor" stroke-width="1.6"/>
+          <text x="65" y="68" font-size="10" fill="currentColor">R-Y-B</text>
+        </svg>`,
+        theory: 'Synchronous speed Ns = 120f/P = 1500 RPM. Electromagnetic torque τ = (3/ωs)·[Vth²·(R2\'/s)] / [(Rth + R2\'/s)² + (Xth + X2\')²]. Maximum pull-out torque Tmax is independent of rotor resistance R2\', whereas increasing R2\' raises starting torque (at s = 1) and shifts maximum torque toward higher slip.',
+        procedure: [
+          'Set line voltage VL = 400 V and rotor resistance R2\' = 0.45 Ω.',
+          'Observe the torque-speed curve from standstill (0 RPM, s = 1) to synchronous speed (1500 RPM, s = 0).',
+          'Increase rotor resistance R2\' to 1.50 Ω and verify that starting torque increases dramatically while peak pull-out torque stays constant.'
+        ],
+        precautions: 'Ensure rotor slip-ring shorting gear is engaged after starting in normal running mode.'
+      },
+      '6B': {
+        area: 'area06', code: '6B', title: 'V-Curves & Power Factor Control of 3-Phase Synchronous Motor',
+        aim: 'To plot the variation of armature current (Ia) and power factor (cos φ) with DC field excitation (If) at constant shaft load (Synchronous Motor V-Curves).',
+        apparatus: [
+          ['3-Phase Synchronous Motor', '5 kVA, 400 V, 1500 RPM', '1 No.'],
+          ['DC Excitation Rectifier & Field Rheostat', '0 – 110 V DC, 5 A', '1 No.'],
+          ['Power Factor Meter & AC Ammeter', '0.5 Lag – 1 – 0.5 Lead', '1 Each']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="210" cy="65" r="34" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <text x="195" y="69" font-size="11" font-weight="bold" fill="currentColor">SYN M</text>
+          <line x1="115" y1="65" x2="176" y2="65" stroke="currentColor" stroke-width="1.8"/>
+          <text x="65" y="69" font-size="10" fill="currentColor">3-Ph AC</text>
+          <line x1="244" y1="65" x2="310" y2="65" stroke="currentColor" stroke-width="1.8"/>
+          <text x="316" y="69" font-size="10" fill="currentColor">DC Field If</text>
+        </svg>`,
+        theory: 'Operating at constant synchronous speed Ns = 1500 RPM, a synchronous motor’s active power depends on torque angle δ. Under-excitation (Ef < V) causes the motor to draw lagging reactive current; normal excitation achieves minimum armature current at unity power factor; over-excitation (Ef > V) supplies leading reactive power like a synchronous condenser.',
+        procedure: [
+          'Set shaft mechanical load to 50% and sweep DC field current If from 0.8 A to 4.5 A.',
+          'Observe the V-shaped armature current curve reaching its minimum at unity power factor (If ≈ 2.5 A).',
+          'Increase load to 100% and note how the V-curve shifts upward and slightly to the right.'
+        ],
+        precautions: 'Start the synchronous motor using damper windings before applying DC field excitation near synchronous speed.'
+      },
+      '7A': {
+        area: 'area07', code: '7A', title: 'Time-Domain Step Response & Tuning of Closed-Loop PID Controller',
+        aim: 'To evaluate the influence of Proportional (Kp), Integral (Ki), and Derivative (Kd) gains on rise time (Tr), percentage overshoot (%OS), settling time (Ts), and steady-state error.',
+        apparatus: [
+          ['Analog / Digital PID Process Simulator', 'Second-Order Plant Gp(s)', '1 No.'],
+          ['Dual-Trace Storage Oscilloscope', 'Slow Timebase / Roll Mode', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <circle cx="75" cy="55" r="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="25" y1="55" x2="62" y2="55" stroke="currentColor" stroke-width="1.6"/>
+          <text x="22" y="47" font-size="10" fill="currentColor">r(t)</text>
+          <line x1="88" y1="55" x2="128" y2="55" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="128" y="38" width="65" height="34" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="147" y="59" font-size="11" font-weight="bold" fill="currentColor">PID</text>
+          <line x1="193" y1="55" x2="233" y2="55" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="233" y="38" width="75" height="34" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="247" y="59" font-size="11" font-weight="bold" fill="currentColor">Plant G(s)</text>
+          <line x1="308" y1="55" x2="375" y2="55" stroke="currentColor" stroke-width="1.6"/>
+          <text x="360" y="47" font-size="10" fill="currentColor">y(t)</text>
+          <polyline points="342,55 342,102 75,102 75,68" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>`,
+        theory: 'The PID control law u(t) = Kp·e(t) + Ki∫e(t)dt + Kd·de(t)/dt shapes closed-loop poles. Increasing Kp lowers rise time but increases overshoot; Ki adds a pole at the origin to force steady-state step error to zero; Kd adds anticipatory damping to suppress oscillation.',
+        procedure: [
+          'Click "P-Only" preset (Kp = 6.0, Ki = 0, Kd = 0) and note the persistent steady-state offset error.',
+          'Click "PI Control" preset (Ki = 2.5) and verify that steady-state error drops to 0.000.',
+          'Click "Tuned PID" preset (Kd = 2.4) to observe reduced overshoot (%OS) and faster settling time Ts.'
+        ],
+        precautions: 'Excessive derivative gain Kd amplifies high-frequency sensor noise in physical control loops.'
+      },
+      '7B': {
+        area: 'area07', code: '7B', title: 'Frequency-Domain Stability Analysis using Bode Plots',
+        aim: 'To construct logarithmic Bode magnitude (dB) and phase (deg) plots of a Type-1 open-loop transfer function and determine Gain Margin (GM) and Phase Margin (PM).',
+        apparatus: [
+          ['Frequency Response Analyzer / Software', '0.1 – 100 rad/s', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <rect x="65" y="18" width="290" height="90" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <line x1="65" y1="55" x2="355" y2="55" stroke="currentColor" stroke-dasharray="3,3"/>
+          <polyline points="75,28 165,45 255,75 345,102" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="75" y="48" font-size="10" fill="currentColor">0 dB Gain Crossover (ωgc)</text>
+        </svg>`,
+        theory: 'For open-loop G(jω) = K / [jω(1 + jω/ω₁)(1 + jω/ω₂)], Gain Crossover Frequency ωgc occurs where |G(jωgc)| = 0 dB, giving Phase Margin PM = 180° + ∠G(jωgc). Phase Crossover ωpc occurs where ∠G(jωpc) = −180°, giving Gain Margin GM = −|G(jωpc)| dB. Both GM > 0 and PM > 0 are required for closed-loop stability.',
+        procedure: [
+          'Set DC Gain K = 15, ω₁ = 2.0 rad/s, and ω₂ = 10.0 rad/s; verify positive Phase Margin (+42.5°).',
+          'Increase DC Gain K progressively until Phase Margin crosses 0° and observe closed-loop instability.'
+        ],
+        precautions: 'Always evaluate stability margins on the open-loop transfer function G(s)H(s).'
+      },
+      '8A': {
+        area: 'area08', code: '8A', title: 'Single-Phase Controlled SCR Rectifier with R, R-L & Freewheeling Diode',
+        aim: 'To study phase-angle (α) firing control in single-phase half-wave and full-wave SCR bridge rectifiers feeding resistive and inductive loads.',
+        apparatus: [
+          ['Single-Phase SCR Bridge Module', '4 × TYN612 Thyristors, 600 V', '1 No.'],
+          ['Zero-Crossing Gate Firing Unit', '0° – 180° Optical Isolation', '1 No.'],
+          ['Power Freewheeling Diode', '1N5408 (3 A, 1000 V)', '1 No.'],
+          ['Rheostat & Iron-Core Choke Inductor', '20 Ω / 0 – 120 mH', '1 Each']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <polygon points="150,35 150,85 205,60" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="205" y1="35" x2="205" y2="85" stroke="currentColor" stroke-width="2.2"/>
+          <line x1="75" y1="60" x2="150" y2="60" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="205" y1="60" x2="325" y2="60" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="190,68 172,98 145,98" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <text x="115" y="112" font-size="10" font-weight="bold" fill="currentColor">Gate Trigger (α)</text>
+          <text x="245" y="48" font-size="10" fill="currentColor">R-L Load + FWD</text>
+        </svg>`,
+        theory: 'An SCR blocks forward voltage until triggered at delay angle α. For a continuous-current full-wave converter, Vdc = (2Vm/π)·cos(α). With an inductive R-L load and no freewheeling diode, stored inductor energy forces the SCR to conduct into the negative half-cycle, creating negative voltage excursions that lower average DC output.',
+        procedure: [
+          'Select Full-Wave Bridge with R = 20 Ω, L = 0 mH, and vary firing angle α from 0° to 150°.',
+          'Increase load inductance to L = 80 mH and uncheck the Freewheeling Diode to observe negative output voltage lobes.',
+          'Re-connect the Freewheeling Diode and verify that negative voltage spikes disappear while average Vdc increases.'
+        ],
+        precautions: 'Use differential or isolated probes when measuring across high-side bridge SCRs.'
+      },
+      '8B': {
+        area: 'area08', code: '8B', title: 'DC-DC Buck & Boost Choppers (CCM & DCM Inductor Ripple)',
+        aim: 'To verify step-down (Buck) and step-up (Boost) DC-DC voltage conversion ratios and analyze inductor current ripple (ΔiL) across Continuous and Discontinuous Conduction Modes.',
+        apparatus: [
+          ['MOSFET-Based Buck/Boost Chopper Kit', 'IRFP460, fs = 25 kHz', '1 No.'],
+          ['High-Frequency Ferrite Toroid Inductor', '50 µH – 600 µH', '1 No.'],
+          ['PWM Duty-Cycle Controller', 'D = 0.10 – 0.85', '1 No.']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <line x1="55" y1="42" x2="115" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="115" y1="42" x2="148" y2="25" stroke="currentColor" stroke-width="2"/>
+          <text x="115" y="20" font-size="10" fill="currentColor">MOSFET (D)</text>
+          <path d="M165,42 Q173,28 181,42 Q189,28 197,42 Q205,28 213,42" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="148" y1="42" x2="165" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <text x="183" y="24" font-size="10" fill="currentColor">L</text>
+          <line x1="213" y1="42" x2="315" y2="42" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="307" y="55" width="16" height="35" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="315" y1="42" x2="315" y2="55" stroke="currentColor" stroke-width="1.6"/>
+          <polyline points="315,90 315,105 55,105 55,42" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>`,
+        theory: 'In steady state, average inductor voltage over one switching period Ts is zero. Balancing volt-seconds yields Vo = D·Vin for a Buck converter and Vo = Vin/(1 − D) for a Boost converter. Reducing inductance L or duty cycle D increases ripple ΔiL until inductor current hits zero (Discontinuous Conduction Mode).',
+        procedure: [
+          'Select Buck (Step-Down) mode with Vin = 48 V, L = 200 µH, and vary duty cycle D from 0.20 to 0.80.',
+          'Reduce filter inductance L to 50 µH and observe the transition from CCM to Discontinuous Conduction Mode (DCM).',
+          'Switch to Boost (Step-Up) mode and verify output voltage elevation above 48 V.'
+        ],
+        precautions: 'Never operate a Boost converter with duty cycle D approaching 1.0 or with an open load.'
+      },
+      '8C': {
+        area: 'area08', code: '8C', title: 'Single-Phase Sinusoidal Pulse-Width Modulation (SPWM) Inverter',
+        aim: 'To synthesize a 50 Hz AC output voltage from a 325 V DC bus using bipolar SPWM carrier comparison and examine amplitude (ma) and frequency (mf) modulation indices.',
+        apparatus: [
+          ['Single-Phase IGBT H-Bridge Inverter', '600 V, 20 A', '1 No.'],
+          ['SPWM Sine-Triangle Gate Driver Board', 'fm = 50 Hz, fc = 250–1500 Hz', '1 No.'],
+          ['LC Low-Pass Output Filter & CRO', '10 mH, 20 µF', '1 Set']
+        ],
+        svg: `<svg viewBox="0 0 420 130">
+          <rect x="135" y="25" width="140" height="75" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <text x="155" y="67" font-size="11" font-weight="bold" fill="currentColor">IGBT H-Bridge</text>
+          <line x1="65" y1="45" x2="135" y2="45" stroke="currentColor" stroke-width="1.6"/>
+          <line x1="65" y1="80" x2="135" y2="80" stroke="currentColor" stroke-width="1.6"/>
+          <text x="30" y="66" font-size="10" fill="currentColor">Vdc 325V</text>
+          <line x1="275" y1="62" x2="355" y2="62" stroke="currentColor" stroke-width="1.6"/>
+          <text x="360" y="66" font-size="10" font-weight="bold" fill="currentColor">AC Vo</text>
+        </svg>`,
+        theory: 'Comparing a 50 Hz sinusoidal reference (amplitude Vm) against a high-frequency triangular carrier (amplitude Vc) generates variable-width gate pulses. In the linear modulation regime (ma = Vm/Vc ≤ 1.0), the fundamental AC peak output is V1,peak = ma·Vdc, while harmonics shift upward to sidebands around carrier frequency fc = mf·50 Hz.',
+        procedure: [
+          'Set amplitude modulation index ma = 0.85 and frequency ratio mf = 15 (fc = 750 Hz).',
+          'Observe the bipolar ±325 V SPWM pulse train and its underlying 50 Hz fundamental sine wave (195.3 V RMS).',
+          'Increase ma above 1.0 to observe over-modulation pulse dropping.'
+        ],
+        precautions: 'Ensure dead-time interlocking is active between upper and lower IGBTs of the same bridge leg.'
+      }
+    };
+
+    function renderManualHtml(code) {
+      const m = labManualDatabase[code];
+      if (!m) return '';
+      return `
+        <div class="manual-sheet">
+          <div class="manual-banner">
+            <div>
+              <div style="font-size:0.8rem; color:var(--teal); font-weight:bold; text-transform:uppercase;">Experiment ${m.code} &bull; Complete Practical Lab Manual &amp; Record Notes</div>
+              <h3 style="font-size:1.25rem; margin-top:0.15rem;">${m.title}</h3>
+            </div>
+            <button class="btn btn-sm" onclick="window.print()">Print Manual Sheet</button>
+          </div>
+
+          <div class="manual-section">
+            <div class="manual-sec-title">1. Aim of the Experiment</div>
+            <p style="font-size:0.96rem;">${m.aim}</p>
+          </div>
+
+          <div class="manual-section">
+            <div class="manual-sec-title">2. Apparatus &amp; Specifications Required</div>
+            <div style="overflow-x:auto;">
+              <table class="lab-table">
+                <thead><tr><th>Equipment / Component Name</th><th>Range / Rating / Specification</th><th style="width:90px;">Quantity</th></tr></thead>
+                <tbody>
+                  ${m.apparatus.map(row => `<tr><td><strong>${row[0]}</strong></td><td>${row[1]}</td><td>${row[2]}</td></tr>`).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="manual-section">
+            <div class="manual-sec-title">3. Standard Circuit / Block Diagram</div>
+            <div class="manual-diagram-wrap">${m.svg}</div>
+          </div>
+
+          <div class="manual-section">
+            <div class="manual-sec-title">4. Theory &amp; Governing Equations</div>
+            <p style="font-size:0.95rem;">${m.theory}</p>
+          </div>
+
+          <div class="manual-section">
+            <div class="manual-sec-title">5. Step-by-Step Experimental Procedure</div>
+            <ol class="manual-steps">
+              ${m.procedure.map(step => `<li>${step}</li>`).join('')}
+            </ol>
+          </div>
+
+          <div class="manual-section">
+            <div class="manual-sec-title">6. Laboratory Precautions</div>
+            <div class="manual-precautions"><strong>Safety &amp; Accuracy Note:</strong> ${m.precautions}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function setBenchMode(mode) {
+      benchMode = mode;
+      const simBtn = document.getElementById('modeSimBtn');
+      const manBtn = document.getElementById('modeManualBtn');
+      const manContainer = document.getElementById('activeExpManualContainer');
+      const principleBox = document.getElementById('principleBox');
+
+      simBtn.classList.toggle('active', mode === 'sim');
+      manBtn.classList.toggle('active', mode === 'manual');
+
+      const view = document.getElementById(`view-${activeArea}`);
+      if (mode === 'manual') {
+        if (view) view.classList.add('hidden');
+        principleBox.classList.add('hidden');
+        manContainer.classList.remove('hidden');
+        manContainer.innerHTML = renderManualHtml(activeSub);
+      } else {
+        manContainer.classList.add('hidden');
+        principleBox.classList.remove('hidden');
+        if (view) view.classList.remove('hidden');
+        setTimeout(renderCurrentSimulation, 15);
+      }
+    }
+
+    function openMasterManual(code = '1A') {
+      switchArea('area09', '9A');
+      const sel = document.getElementById('masterManualSelect');
+      if (sel) {
+        sel.value = code;
+        document.getElementById('masterManualViewer').innerHTML = renderManualHtml(code);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function launchSelectedManualSim() {
+      const code = document.getElementById('masterManualSelect').value;
+      const entry = labManualDatabase[code];
+      if (entry) launchExp(entry.area, code, 'sim');
+    }
+
+    function initMasterManualHub() {
+      const sel = document.getElementById('masterManualSelect');
+      if (!sel) return;
+      sel.innerHTML = Object.values(labManualDatabase)
+        .map(m => `<option value="${m.code}">${m.code} — ${m.title}</option>`)
+        .join('');
+      sel.addEventListener('change', e => {
+        document.getElementById('masterManualViewer').innerHTML = renderManualHtml(e.target.value);
+      });
+      document.getElementById('masterManualViewer').innerHTML = renderManualHtml('1A');
+    }
+
+    function switchArea(areaId, preferredSubId = null, targetMode = 'sim') {
       activeArea = areaId;
       document.querySelectorAll('.area-view').forEach(v => v.classList.add('hidden'));
       const targetView = document.getElementById(`view-${areaId}`);
@@ -2662,6 +3832,11 @@
 
       document.querySelectorAll('.nav-item').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.area === areaId);
+      });
+
+      // Expand active sidebar group cleanly
+      document.querySelectorAll('.nav-group').forEach(grp => {
+        if (grp.dataset.group === areaId) grp.classList.add('expanded');
       });
 
       // Update mobile dock highlight
@@ -2674,6 +3849,9 @@
 
       const isLab = !['area00', 'area09'].includes(areaId);
       document.getElementById('headerActionWrap').classList.toggle('hidden', !isLab);
+      document.getElementById('workbenchModeBar').classList.toggle('hidden', !isLab);
+      document.getElementById('activeExpManualContainer').classList.add('hidden');
+      document.getElementById('principleBox').classList.remove('hidden');
 
       const tabsBar = document.getElementById('subTabsBar');
       if (!meta.subs || meta.subs.length === 0) {
@@ -2688,22 +3866,25 @@
           `<button class="sub-tab" data-sub="${s.id}">${s.label}</button>`
         ).join('');
         tabsBar.querySelectorAll('.sub-tab').forEach(btn => {
-          btn.addEventListener('click', () => selectSubExp(btn.dataset.sub));
+          btn.addEventListener('click', () => selectSubExp(btn.dataset.sub, benchMode));
         });
         const firstSub = preferredSubId || meta.subs[0].id;
-        selectSubExp(firstSub);
+        selectSubExp(firstSub, targetMode);
       }
 
       sidebar.classList.remove('open');
       sidebarBackdrop.classList.remove('open');
     }
 
-    function selectSubExp(subId) {
+    function selectSubExp(subId, targetMode = 'sim') {
       activeSub = subId;
       const meta = curriculum[activeArea];
       const subObj = meta.subs.find(s => s.id === subId) || meta.subs[0];
 
       document.querySelectorAll('#subTabsBar .sub-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.sub === subId);
+      });
+      document.querySelectorAll('.nav-subitem').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.sub === subId);
       });
 
@@ -2736,11 +3917,16 @@
         document.getElementById('semiBjtBox').classList.remove('hidden');
       }
 
-      setTimeout(renderCurrentSimulation, 15);
+      const isLab = !['area00', 'area09'].includes(activeArea);
+      if (isLab) {
+        setBenchMode(targetMode);
+      } else {
+        setTimeout(renderCurrentSimulation, 15);
+      }
     }
 
-    function launchExp(areaId, subId) {
-      switchArea(areaId, subId);
+    function launchExp(areaId, subId, mode = 'sim') {
+      switchArea(areaId, subId, mode);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2760,13 +3946,20 @@
     }
 
     document.querySelectorAll('.nav-item').forEach(btn => {
-      btn.addEventListener('click', () => switchArea(btn.dataset.area));
+      btn.addEventListener('click', () => {
+        const grp = btn.closest('.nav-group');
+        if (grp && activeArea === btn.dataset.area) {
+          grp.classList.toggle('expanded');
+          return;
+        }
+        switchArea(btn.dataset.area);
+      });
     });
 
-    // Home Search & Filter across Branch Cards & Master Table
+    // Home Search & Filter across Track Headers, Branch Cards & Master Table
     document.getElementById('homeSearchInput').addEventListener('input', e => {
       const q = e.target.value.trim().toLowerCase();
-      document.querySelectorAll('#branchCardsGrid .branch-card').forEach(card => {
+      document.querySelectorAll('.branch-card').forEach(card => {
         const text = (card.textContent + ' ' + card.dataset.keywords).toLowerCase();
         card.classList.toggle('hidden', q && !text.includes(q));
       });
@@ -4719,7 +5912,9 @@
     }
 
     window.onload = function () {
+      generateMicroscopePngFavicon();
       initCanvasProbes();
+      initMasterManualHub();
       initVivaQuiz();
       updateCroLabels();
       setKmapPreset('majority');
